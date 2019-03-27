@@ -1,8 +1,6 @@
-# cuberto_bottom_bar
 
-Cuberto Bottom Bar in flutter
 # Cuberto Bottom Bar
-
+Cuberto Bottom Bar in flutter
 ![Cuberto Bottom bar Gif]( "Cuberto Bottom bar Gif")
 
 ## Getting Started
@@ -59,7 +57,7 @@ bottomNavigationBar: FancyBottomNavigation(
 The bar will attempt to use your current theme out of the box, however you may want to theme it. Here are the attributes:
 
 
-![Fancy Theming](https://github.com/tunitowen/fancy_bottom_navigation/blob/master/fancy_theming.png "Fancy Theming")
+![Cuberto Bottom Bar Theming]( "Cuberto Bottom Bar Theming")
 
 ## Programmatic Selection
 
@@ -73,9 +71,9 @@ Using this package in a live app, let me know and I'll add you app here.
 ## Inspiration
 
 This package was inspired by a design on dribbble bySourabh Gupta and the faded backgorund style from Aurelien Salomon:<br/>
-https://github.com/sourabhgupta811/CubertoBottomBar
-https://dribbble.com/shots/5925052-Google-Bottom-Bar-Navigation-Pattern
-https://www.instagram.com/p/BtyUbSkBlnF/
+https://github.com/sourabhgupta811/CubertoBottomBar <br/>
+https://dribbble.com/shots/5925052-Google-Bottom-Bar-Navigation-Pattern <br/>
+https://www.instagram.com/p/BtyUbSkBlnF/ <br/>
 ## Contributing
 
 Contributions are welcome, please submit a PR :)
