@@ -1,8 +1,11 @@
 
 # Cuberto Bottom Bar
-Cuberto Bottom Bar in flutter
-![Cuberto Bottom bar Gif- Default Style](https://media.giphy.com/media/5RSvz7q2sj5HmmzVf1/giphy.gif "Cuberto Bottom bar Gif- Default Style")
-![Cuberto Bottom bar Gif- Faded Style](https://media.giphy.com/media/8Twd7w3GZi12XFAPEQ/giphy.gif "Cuberto Bottom bar Gif- Faded Style")
+Cuberto Bottom Bar in flutter<br/>
+#Cuberto Bottom bar Gif- Default Style
+![Cuberto Bottom bar Gif- Default Style](https://media.giphy.com/media/5RSvz7q2sj5HmmzVf1/giphy.gif "Cuberto Bottom bar Gif- Default Style") <br/>
+
+#Cuberto Bottom bar Gif- Faded Style
+![Cuberto Bottom bar Gif- Faded Style](https://media.giphy.com/media/8Twd7w3GZi12XFAPEQ/giphy.gif "Cuberto Bottom bar Gif- Faded Style") <br/>
 
 ## Getting Started
 
