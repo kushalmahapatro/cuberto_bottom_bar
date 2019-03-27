@@ -22,18 +22,37 @@ For now this is limited to more than 1 tab, and less than 5. So 2-4 tabs.
 
 Adding the widget
 ```dart
-bottomNavigationBar: FancyBottomNavigation(
-    tabs: [
-        TabData(iconData: Icons.home, title: "Home"),
-        TabData(iconData: Icons.search, title: "Search"),
-        TabData(iconData: Icons.shopping_cart, title: "Basket")
-    ],
-    onTabChangedListener: (position) {
-        setState(() {
-        currentPage = position;
-        });
-    },
-)
+bottomNavigationBar: CubertoBottomBar(
+        inactiveIconColor: inactiveColor,
+        tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND, // By default its CubertoTabStyle.STYLE_NORMAL
+        initialSelection: 0, // By default its 0
+        drawer: CubertoDrawer.NO_DRAWER, // By default its NO_DRAWER (Availble START_DRAWER and END_DRAWER as per where you want to how the drawer icon in Cuberto Bottom bar)
+        tabs: [
+          TabData(
+              iconData: Icons.home,
+              title: "Home",
+              tabColor: Colors.deepPurple),
+          TabData(
+              iconData: Icons.search,
+              title: "Search",
+              tabColor: Colors.pink),
+          TabData(
+              iconData: Icons.access_alarm,
+              title: "Alarm",
+              tabColor: Colors.amber),
+          TabData(
+              iconData: Icons.settings,
+              title: "Settings",
+              tabColor: Colors.teal),
+        ],
+        onTabChangedListener: (position, title, color) {
+          setState(() {
+            currentPage = position;
+            currentTitle = title;
+            currentColor = color;
+          });
+        },
+      ),
 ```
 
 ## TabData
