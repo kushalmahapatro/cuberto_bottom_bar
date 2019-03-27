@@ -86,9 +86,12 @@ bottomNavigationBar: CubertoBottomBar(
 ## Theming
 
 The bar will attempt to use your current theme out of the box, however you may want to theme it. Here are the attributes:
+## Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND
+![Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image1.png "Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND") <br/>
 
+## Cuberto Bottom Bar Theming - STYLE_NORMAL
+![Cuberto Bottom Bar Theming - STYLE_NORMAL](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image2.png "Cuberto Bottom Bar Theming - STYLE_NORMAL") <br/>
 
-![Cuberto Bottom Bar Theming]( "Cuberto Bottom Bar Theming")
 
 ## Showcase
 Using this package in a live app, let me know and I'll add you app here.
