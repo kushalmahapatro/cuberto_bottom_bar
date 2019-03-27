@@ -1,8 +1,8 @@
 name: cuberto_bottom_bar
-description: Cuberto Bottom Bar in flutter
+description: An animated bottom navigation bar supporting drawer icon at start or end or can be used with the drawer icon and is provided with 2 different style.
 version: 0.0.1
-author:
-homepage:
+author: Kushal Mahapatro  <kushalmahapatro@gmail.com>
+homepage: https://github.com/kushalmahapatro/cuberto_bottom_bar
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
