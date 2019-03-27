@@ -54,7 +54,7 @@ class _TabItemState extends State<TabItem> {
             children: <Widget>[
               Icon(
                 widget.iconData,
-                color: widget.selected ? Colors.white : widget.iconColor,
+                color: widget.selected ? widget.textColor : widget.iconColor,
               ),
               AnimatedContainer(
           duration: Duration(milliseconds: ANIM_DURATION),
@@ -67,7 +67,7 @@ class _TabItemState extends State<TabItem> {
                   maxLines: 1,
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    color: Colors.white,
+                    color:  widget.textColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

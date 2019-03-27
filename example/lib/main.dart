@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )),
       bottomNavigationBar: CubertoBottomBar(
         inactiveIconColor: inactiveColor,
-        tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
+        tabStyle: CubertoTabStyle.STYLE_NORMAL,
         initialSelection: 0,
         drawer: CubertoDrawer.NO_DRAWER,
         tabs: [
@@ -69,14 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
           TabData(
               iconData: Icons.search, title: "Search", tabColor: Colors.pink),
           TabData(
-              iconData: Icons.access_alarm,
-              title: "Alarm",
-              tabColor: Colors.amber),
+              iconData: Icons.access_alarm, title: "Alarm", tabColor: Colors.amber),
           TabData(
-              iconData: Icons.settings,
-              title: "Settings",
-              tabColor: Colors.teal),
-//          TabData(iconData: Icons.access_alarm, title: "Alarm"),
+              iconData: Icons.settings, title: "Settings", tabColor: Colors.teal),
         ],
         onTabChangedListener: (position, title, color) {
           setState(() {

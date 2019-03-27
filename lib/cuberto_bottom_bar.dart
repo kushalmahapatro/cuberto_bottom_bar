@@ -5,14 +5,12 @@ import 'package:cuberto_bottom_bar/internal/tab_item_new.dart';
 
 import 'package:flutter/material.dart';
 
-
 const double BAR_HEIGHT = 60;
 const int ANIM_DURATION = 300;
 
 class CubertoBottomBar extends StatefulWidget {
-  final Function(int position, String title, Color tabColor) onTabChangedListener;
-  final Color circleColor;
-  final Color activeIconColor;
+  final Function(int position, String title, Color tabColor)
+      onTabChangedListener;
   final Color inactiveIconColor;
   final Color tabColor;
   final Color textColor;
@@ -23,13 +21,12 @@ class CubertoBottomBar extends StatefulWidget {
   final CubertoTabStyle tabStyle;
 
   final Key key;
+
   CubertoBottomBar(
       {@required this.tabs,
       @required this.onTabChangedListener,
       this.key,
       this.initialSelection = 0,
-      this.circleColor,
-      this.activeIconColor,
       this.inactiveIconColor,
       this.textColor,
       this.tabColor,
@@ -67,37 +64,19 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
     super.didChangeDependencies();
 
     activeIcon = widget.tabs[currentSelected].iconData;
-
-    circleColor = (widget.circleColor == null)
-        ? (Theme.of(context).brightness == Brightness.dark)
-            ? Colors.white
-            : Theme.of(context).primaryColor
-        : widget.circleColor;
-
-    activeIconColor = (widget.activeIconColor == null)
-        ? (Theme.of(context).brightness == Brightness.dark)
-            ? Colors.black54
-            : Colors.white
-        : widget.activeIconColor;
-
     barBackgroundColor = (widget.barBackgroundColor == null)
         ? (Theme.of(context).brightness == Brightness.dark)
             ? Color(0xFF212121)
             : Colors.white
         : widget.barBackgroundColor;
-    textColor = (widget.textColor == null)
-        ? (Theme.of(context).brightness == Brightness.dark)
-            ? Colors.white
-            : Colors.black54
-        : widget.textColor;
+    textColor = (widget.textColor == null) ? Colors.white : widget.textColor;
     inactiveIconColor = (widget.inactiveIconColor == null)
         ? (Theme.of(context).brightness == Brightness.dark)
             ? Colors.white
             : Theme.of(context).primaryColor
         : widget.inactiveIconColor;
 
-    tabColor =
-        (widget.tabColor == null) ? activeIconColor : widget.tabColor;
+    tabColor = (widget.tabColor == null) ? activeIconColor : widget.tabColor;
   }
 
   @override
@@ -171,7 +150,10 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
     );
   }
 
-  rowTabs(List<TabData> tabs, Function(int position, String title, Color tabColor) onTabChangedListener) {
+  rowTabs(
+      List<TabData> tabs,
+      Function(int position, String title, Color tabColor)
+          onTabChangedListener) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,7 +186,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
                   callbackFunction: (uniqueKey) {
                     int selected =
                         tabs.indexWhere((tabData) => tabData.key == uniqueKey);
-                    onTabChangedListener(selected , t.title, t.tabColor);
+                    onTabChangedListener(selected, t.title, t.tabColor);
                     _setSelected(uniqueKey);
                     _initAnimationAndStart(_circleAlignX, 1);
                   }))
@@ -212,8 +194,11 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
     );
   }
 
-  setUptabs(CubertoDrawer drawer, List<TabData> tabs,
-      Function(int position, String title, Color tabColor) onTabChangedListener, Widget actions) {
+  setUptabs(
+      CubertoDrawer drawer,
+      List<TabData> tabs,
+      Function(int position, String title, Color tabColor) onTabChangedListener,
+      Widget actions) {
     Widget widget;
     if (drawer == CubertoDrawer.END_DRAWER) {
       widget = Row(children: <Widget>[
@@ -236,19 +221,16 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
   }
 
   _initAnimationAndStart(double from, double to) {
-
     Future.delayed(Duration(milliseconds: ANIM_DURATION ~/ 5), () {
       setState(() {
         activeIcon = nextIcon;
       });
     }).then((_) {
       Future.delayed(Duration(milliseconds: (ANIM_DURATION ~/ 5 * 3)), () {
-        setState(() {
-        });
+        setState(() {});
       });
     });
   }
-
 }
 
 class TabData {
@@ -257,6 +239,7 @@ class TabData {
       @required this.title,
       this.onclick,
       this.tabColor});
+
   IconData iconData;
   String title;
   Function onclick;
