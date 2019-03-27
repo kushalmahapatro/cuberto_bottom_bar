@@ -1,10 +1,10 @@
 
 # Cuberto Bottom Bar
 Cuberto Bottom Bar in flutter<br/>
-Cuberto Bottom bar Gif- Default Style<br/>
+## Cuberto Bottom bar Gif- Default Style<br/>
 ![Cuberto Bottom bar Gif- Default Style](https://media.giphy.com/media/5RSvz7q2sj5HmmzVf1/giphy.gif "Cuberto Bottom bar Gif- Default Style") <br/>
 
-Cuberto Bottom bar Gif- Faded Style<br/>
+## Cuberto Bottom bar Gif- Faded Style<br/>
 ![Cuberto Bottom bar Gif- Faded Style](https://media.giphy.com/media/8Twd7w3GZi12XFAPEQ/giphy.gif "Cuberto Bottom bar Gif- Faded Style") <br/>
 
 ## Getting Started
@@ -61,18 +61,13 @@ The bar will attempt to use your current theme out of the box, however you may w
 
 ![Cuberto Bottom Bar Theming]( "Cuberto Bottom Bar Theming")
 
-## Programmatic Selection
-
-To select a tab programmatically you will need to assign a GlobalKey to the widget. When you want to change tabs you will need to access the State using this key, and then call `setPage(position)`.<br/>
-See example project, main.dart, line 75 for an example.
-
 ## Showcase
 Using this package in a live app, let me know and I'll add you app here.
 
 
 ## Inspiration
 
-This package was inspired by a design on dribbble bySourabh Gupta and the faded backgorund style from Aurelien Salomon:<br/>
+This package was inspired by a design on dribbble by Sourabh Gupta and the faded backgorund style from Aurelien Salomon:<br/>
 https://github.com/sourabhgupta811/CubertoBottomBar <br/>
 https://dribbble.com/shots/5925052-Google-Bottom-Bar-Navigation-Pattern <br/>
 https://www.instagram.com/p/BtyUbSkBlnF/ <br/>
