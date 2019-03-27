@@ -1,7 +1,8 @@
 
 # Cuberto Bottom Bar
 Cuberto Bottom Bar in flutter
-![Cuberto Bottom bar Gif]( "Cuberto Bottom bar Gif")
+![Cuberto Bottom bar Gif- Default Style](https://media.giphy.com/media/5RSvz7q2sj5HmmzVf1/giphy.gif "Cuberto Bottom bar Gif- Default Style")
+![Cuberto Bottom bar Gif- Faded Style](https://media.giphy.com/media/8Twd7w3GZi12XFAPEQ/giphy.gif "Cuberto Bottom bar Gif- Faded Style")
 
 ## Getting Started
 
@@ -10,7 +11,7 @@ Add the plugin (pub coming soon):
 ```yaml
 dependencies:
   ...
-  cuberto_bottom_bar: ^0.01.
+  cuberto_bottom_bar: ^0.0.1
 ```
 
 ## Limitations
