@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
             child: Text(
           currentTitle,
-          style: TextStyle(color: inactiveColor, fontSize: 20.0),
+          style: TextStyle(color: Colors.white, fontSize: 20.0),
         )),
       ),
       drawer: new Container(
@@ -69,9 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
           TabData(
               iconData: Icons.search, title: "Search", tabColor: Colors.pink),
           TabData(
-              iconData: Icons.access_alarm, title: "Alarm", tabColor: Colors.amber),
+              iconData: Icons.access_alarm,
+              title: "Alarm",
+              tabColor: Colors.amber),
           TabData(
-              iconData: Icons.settings, title: "Settings", tabColor: Colors.teal),
+              iconData: Icons.settings,
+              title: "Settings",
+              tabColor: Colors.teal),
         ],
         onTabChangedListener: (position, title, color) {
           setState(() {
