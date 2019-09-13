@@ -1,6 +1,7 @@
-## [1.0.0]
+## [1.0.1]
 
 * Increased button padding
+* Option added to add border radius
 
 ## [0.0.2]
 
