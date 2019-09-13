@@ -11,13 +11,28 @@ const int ANIM_DURATION = 300;
 class CubertoBottomBar extends StatefulWidget {
   final Function(int position, String title, Color tabColor)
       onTabChangedListener;
+  /// This color is used to show that the tab is inactive i.e not selected
   final Color inactiveIconColor;
+
+  /// This color is used to specify the tab color
   final Color tabColor;
+
+  /// This color is used to specify the color of text in the tab
   final Color textColor;
+
+  /// This color is used to set up the background color of the bottom bar
   final Color barBackgroundColor;
+
+  /// list of [TabData] to set up the bottom nav bar
   final List<TabData> tabs;
+
+  /// This color is used for the initial color of the text and the icon
   final int initialSelection;
+
+  /// To add a navgation drawer of [CubertoDrawer] type
   final CubertoDrawer drawer;
+
+  /// [CubertoTabStyle] to be defined as required, by default it will be [CubertoTabStyle.STYLE_NORMAL]
   final CubertoTabStyle tabStyle;
 
   final Key key;
@@ -56,8 +71,10 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
   Color textColor;
   Color tabColor;
 
-  CubertoDrawer drawer;
+  CubertoDrawerStyle drawerStyle;
   CubertoTabStyle tabStyle;
+
+  Icon drawerIcon;
 
   @override
   void didChangeDependencies() {
@@ -83,9 +100,24 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
   void initState() {
     super.initState();
     if (widget.drawer == null) {
-      drawer = CubertoDrawer.NO_DRAWER;
-    } else {
-      drawer = widget.drawer;
+      drawerStyle = CubertoDrawerStyle.NO_DRAWER;
+      drawerIcon = Icon(
+        Icons.menu,
+        color: inactiveIconColor,
+      );
+    } else{
+      if(widget.drawer.style != null)
+        drawerStyle = widget.drawer.style;
+      else
+        drawerStyle = CubertoDrawerStyle.NO_DRAWER;
+
+      if( widget.drawer.icon != null)
+        drawerIcon = widget.drawer.icon;
+      else
+        drawerIcon = Icon(
+          Icons.menu,
+          color: inactiveIconColor,
+        );
     }
     if (widget.tabStyle == null) {
       tabStyle = CubertoTabStyle.STYLE_NORMAL;
@@ -118,13 +150,10 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
     }
 
     Widget actions;
-    if (drawer != CubertoDrawer.NO_DRAWER) {
+    if (drawerStyle != CubertoDrawerStyle.NO_DRAWER) {
       actions = IconButton(
-        icon: Icon(
-          Icons.menu,
-          color: inactiveIconColor,
-        ),
-        onPressed: widget.drawer == CubertoDrawer.END_DRAWER
+        icon: drawerIcon,
+        onPressed: widget.drawer.style == CubertoDrawerStyle.END_DRAWER
             ? _handleDrawerButtonEnd
             : _handleDrawerButton,
         tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
@@ -144,7 +173,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
                 color: Colors.black12, offset: Offset(0, -1), blurRadius: 8)
           ]),
           child: setUptabs(
-              widget.drawer, widget.tabs, widget.onTabChangedListener, actions),
+             drawerStyle, widget.tabs, widget.onTabChangedListener, actions),
         ),
       ],
     );
@@ -195,19 +224,19 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
   }
 
   setUptabs(
-      CubertoDrawer drawer,
+      CubertoDrawerStyle drawerStyle,
       List<TabData> tabs,
       Function(int position, String title, Color tabColor) onTabChangedListener,
       Widget actions) {
     Widget widget;
-    if (drawer == CubertoDrawer.END_DRAWER) {
+    if (drawerStyle == CubertoDrawerStyle.END_DRAWER) {
       widget = Row(children: <Widget>[
         Expanded(
           child: rowTabs(tabs, onTabChangedListener),
         ),
         actions,
       ]);
-    } else if (drawer == CubertoDrawer.START_DRAWER) {
+    } else if (drawerStyle == CubertoDrawerStyle.START_DRAWER) {
       widget = Row(children: <Widget>[
         actions,
         Expanded(
@@ -247,6 +276,14 @@ class TabData {
   final UniqueKey key = UniqueKey();
 }
 
-enum CubertoDrawer { START_DRAWER, END_DRAWER, NO_DRAWER }
+class CubertoDrawer {
+  final Icon icon;
+  final CubertoDrawerStyle style;
+  const CubertoDrawer({this.icon, this.style});
+
+}
+enum CubertoDrawerStyle { START_DRAWER, END_DRAWER, NO_DRAWER }
+
+
 
 enum CubertoTabStyle { STYLE_NORMAL, STYLE_FADED_BACKGROUND }

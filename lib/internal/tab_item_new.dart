@@ -41,13 +41,13 @@ class TabItemNew extends StatefulWidget {
 class _TabItemState extends State<TabItemNew> {
   @override
    Widget build(BuildContext context) {
-    return AnimatedContainer(
+    return InkWell(
+      child: AnimatedContainer(
       padding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
       duration: Duration(milliseconds: ANIM_DURATION),
       decoration: BoxDecoration(
           color: widget.selected ? widget.tabColor.withOpacity(0.1) : Colors.transparent,
           borderRadius: BorderRadius.all(Radius.circular(20.0))),
-      child: InkWell(
         child: AnimatedContainer(
           duration: Duration(milliseconds: ANIM_DURATION),
           child: Row(
@@ -76,10 +76,10 @@ class _TabItemState extends State<TabItemNew> {
             ],
           ),
         ),
-        onTap: () {
-          widget.callbackFunction(widget.uniqueKey);
-        },
       ),
+      onTap: () {
+        widget.callbackFunction(widget.uniqueKey);
+      },
     );
   }
 }

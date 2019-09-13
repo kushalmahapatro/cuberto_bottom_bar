@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
             child: Text(
           currentTitle,
-          style: TextStyle(color: inactiveColor, fontSize: 20.0),
+          style: TextStyle(color: Colors.white, fontSize: 20.0),
         )),
       ),
       drawer: new Container(
@@ -60,9 +60,9 @@ class _MyHomePageState extends State<MyHomePage> {
           )),
       bottomNavigationBar: CubertoBottomBar(
         inactiveIconColor: inactiveColor,
-        tabStyle: CubertoTabStyle.STYLE_NORMAL,
+        tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
         initialSelection: 0,
-        drawer: CubertoDrawer.NO_DRAWER,
+//        drawer: CubertoDrawer(style: CubertoDrawerStyle.END_DRAWER, icon: Icon(Icons.sort)),
         tabs: [
           TabData(
               iconData: Icons.home, title: "Home", tabColor: Colors.deepPurple),
