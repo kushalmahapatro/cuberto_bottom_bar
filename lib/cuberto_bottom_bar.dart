@@ -26,6 +26,7 @@ class CubertoBottomBar extends StatefulWidget {
   /// list of [TabData] to set up the bottom nav bar
   final List<TabData> tabs;
 
+/// [BorderRadius] to add border to the bottom bar.
   final BorderRadius barBorderRadius;
 
   /// This color is used for the initial color of the text and the icon
