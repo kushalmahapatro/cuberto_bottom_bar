@@ -26,6 +26,8 @@ class CubertoBottomBar extends StatefulWidget {
   /// list of [TabData] to set up the bottom nav bar
   final List<TabData> tabs;
 
+  final BorderRadius barBorderRadius;
+
   /// This color is used for the initial color of the text and the icon
   final int initialSelection;
 
@@ -46,6 +48,7 @@ class CubertoBottomBar extends StatefulWidget {
       this.textColor,
       this.tabColor,
       this.barBackgroundColor,
+      this.barBorderRadius = null,
       this.drawer,
       this.tabStyle})
       : assert(onTabChangedListener != null),
@@ -168,10 +171,14 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
         Container(
           padding: EdgeInsets.fromLTRB(3.0, 0.0, 3.0, 0.0),
           height: BAR_HEIGHT,
-          decoration: BoxDecoration(color: barBackgroundColor, boxShadow: [
-            BoxShadow(
-                color: Colors.black12, offset: Offset(0, -1), blurRadius: 8)
-          ]),
+          decoration: BoxDecoration(
+            color: barBackgroundColor,
+            borderRadius: widget.barBorderRadius,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black12, offset: Offset(0, -1), blurRadius: 8)
+            ],
+          ),
           child: setUptabs(
              drawerStyle, widget.tabs, widget.onTabChangedListener, actions),
         ),

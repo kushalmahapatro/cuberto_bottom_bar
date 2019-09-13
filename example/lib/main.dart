@@ -69,9 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
           TabData(
               iconData: Icons.search, title: "Search", tabColor: Colors.pink),
           TabData(
-              iconData: Icons.access_alarm, title: "Alarm", tabColor: Colors.amber),
+              iconData: Icons.access_alarm,
+              title: "Alarm",
+              tabColor: Colors.amber),
           TabData(
-              iconData: Icons.settings, title: "Settings", tabColor: Colors.teal),
+              iconData: Icons.settings,
+              title: "Settings",
+              tabColor: Colors.teal),
         ],
         onTabChangedListener: (position, title, color) {
           setState(() {

@@ -79,6 +79,7 @@ bottomNavigationBar: CubertoBottomBar(
 **inactiveIconColor** -> Defaults to null, derives from `Theme`<br/>
 **textColor** -> Defaults to Colors.white<br/>
 **barBackgroundColor** -> Defaults to null, derives from `Theme`<br/>
+**barBorderRadius** -> Default to null (Scaffold's background color must be different than barBackgroundColor)<br/>
 **tabStyle** -> Defaults to CubertoTabStyle.STYLE_NORMAL<br/>
 **drawer** -> Defaults to CubertoDrawer.NO_DRAWER (can be set as CubertoDrawer.START_DRAWER or CubertoDrawer.END_DRAWER as per the need for the placement of drawer icon)
 **key** -> Defaults to null<br/>
