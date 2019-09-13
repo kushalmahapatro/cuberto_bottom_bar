@@ -12,7 +12,7 @@ Cuberto Bottom Bar in flutter<br/>
 ```yaml
 dependencies:
   ...
-  cuberto_bottom_bar: ^0.0.2
+  cuberto_bottom_bar: ^1.0.0
 ```
 
 ## Limitations
