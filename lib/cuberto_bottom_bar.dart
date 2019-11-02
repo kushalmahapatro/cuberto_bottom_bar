@@ -5,12 +5,12 @@ import 'package:cuberto_bottom_bar/internal/tab_item_new.dart';
 
 import 'package:flutter/material.dart';
 
-const double BAR_HEIGHT = 60;
 const int ANIM_DURATION = 300;
 
 class CubertoBottomBar extends StatefulWidget {
-  final Function(int position, String title, Color tabColor)
-      onTabChangedListener;
+  /// The callback that will be executed each time the tab is changed
+  final Function(int position, String title, Color tabColor) onTabChangedListener;
+
   /// This color is used to show that the tab is inactive i.e not selected
   final Color inactiveIconColor;
 
@@ -23,10 +23,10 @@ class CubertoBottomBar extends StatefulWidget {
   /// This color is used to set up the background color of the bottom bar
   final Color barBackgroundColor;
 
-  /// list of [TabData] to set up the bottom nav bar
+  /// List of [TabData] to set up the bottom nav bar
   final List<TabData> tabs;
 
-/// [BorderRadius] to add border to the bottom bar.
+  /// [BorderRadius] to add border to the bottom bar.
   final BorderRadius barBorderRadius;
 
   /// This color is used for the initial color of the text and the icon
@@ -38,21 +38,30 @@ class CubertoBottomBar extends StatefulWidget {
   /// [CubertoTabStyle] to be defined as required, by default it will be [CubertoTabStyle.STYLE_NORMAL]
   final CubertoTabStyle tabStyle;
 
+  /// The [Key] of the [CubertoBottomBar]
   final Key key;
 
-  CubertoBottomBar(
-      {@required this.tabs,
-      @required this.onTabChangedListener,
-      this.key,
-      this.initialSelection = 0,
-      this.inactiveIconColor,
-      this.textColor,
-      this.tabColor,
-      this.barBackgroundColor,
-      this.barBorderRadius = null,
-      this.drawer,
-      this.tabStyle})
-      : assert(onTabChangedListener != null),
+  /// The inner padding of the [CubertoBottomBar]
+  final EdgeInsets padding;
+
+  /// The list of shadows of the [CubertoBottomBar]
+  final List<BoxShadow> barShadow;
+
+  CubertoBottomBar({
+    @required this.tabs,
+    @required this.onTabChangedListener,
+    this.key,
+    this.initialSelection = 0,
+    this.inactiveIconColor,
+    this.textColor,
+    this.tabColor,
+    this.barBackgroundColor,
+    this.barBorderRadius,
+    this.drawer,
+    this.tabStyle,
+    this.padding,
+    this.barShadow,
+  })  : assert(onTabChangedListener != null),
         assert(tabs != null),
         assert(tabs.length > 1 && tabs.length < 5);
 
@@ -109,13 +118,13 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
         Icons.menu,
         color: inactiveIconColor,
       );
-    } else{
-      if(widget.drawer.style != null)
+    } else {
+      if (widget.drawer.style != null)
         drawerStyle = widget.drawer.style;
       else
         drawerStyle = CubertoDrawerStyle.NO_DRAWER;
 
-      if( widget.drawer.icon != null)
+      if (widget.drawer.icon != null)
         drawerIcon = widget.drawer.icon;
       else
         drawerIcon = Icon(
@@ -170,87 +179,112 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.fromLTRB(3.0, 0.0, 3.0, 0.0),
-          height: BAR_HEIGHT,
+          padding: widget.padding ??
+              EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 16.0,
+              ),
           decoration: BoxDecoration(
             color: barBackgroundColor,
             borderRadius: widget.barBorderRadius,
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black12, offset: Offset(0, -1), blurRadius: 8)
-            ],
+            boxShadow: widget.barShadow ??
+                [
+                  BoxShadow(
+                    color: Colors.black12,
+                    offset: Offset(0, -1),
+                    blurRadius: 8,
+                  ),
+                ],
           ),
-          child: setUptabs(
-             drawerStyle, widget.tabs, widget.onTabChangedListener, actions),
+          child: setUpTabs(
+            drawerStyle,
+            widget.tabs,
+            widget.onTabChangedListener,
+            actions,
+          ),
         ),
       ],
     );
   }
 
   rowTabs(
-      List<TabData> tabs,
-      Function(int position, String title, Color tabColor)
-          onTabChangedListener) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: tabs
-          .map((t) => tabStyle == CubertoTabStyle.STYLE_NORMAL
-              ? TabItem(
-                  uniqueKey: t.key,
-                  selected: t.key == tabs[currentSelected].key,
-                  iconData: t.iconData,
-                  title: t.title,
-                  iconColor: inactiveIconColor,
-                  textColor: textColor,
-                  tabColor: t.tabColor == null ? inactiveIconColor : t.tabColor,
-                  callbackFunction: (uniqueKey) {
-                    int selected =
-                        tabs.indexWhere((tabData) => tabData.key == uniqueKey);
-                    onTabChangedListener(selected, t.title, inactiveIconColor);
-                    _setSelected(uniqueKey);
-                    _initAnimationAndStart(_circleAlignX, 1);
-                  })
-              : TabItemNew(
-                  uniqueKey: t.key,
-                  selected: t.key == tabs[currentSelected].key,
-                  iconData: t.iconData,
-                  title: t.title,
-                  iconColor: inactiveIconColor,
-                  textColor: textColor,
-                  tabColor: t.tabColor == null ? inactiveIconColor : t.tabColor,
-                  callbackFunction: (uniqueKey) {
-                    int selected =
-                        tabs.indexWhere((tabData) => tabData.key == uniqueKey);
-                    onTabChangedListener(selected, t.title, t.tabColor);
-                    _setSelected(uniqueKey);
-                    _initAnimationAndStart(_circleAlignX, 1);
-                  }))
-          .toList(),
+    List<TabData> tabs,
+    Function(int position, String title, Color tabColor) onTabChangedListener,
+  ) {
+    return SafeArea(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: tabs
+            .map(
+              (t) => tabStyle == CubertoTabStyle.STYLE_NORMAL
+                  ? TabItem(
+                      uniqueKey: t.key,
+                      selected: t.key == tabs[currentSelected].key,
+                      iconData: t.iconData,
+                      title: t.title,
+                      iconColor: inactiveIconColor,
+                      textColor: textColor,
+                      tabColor:
+                          t.tabColor == null ? inactiveIconColor : t.tabColor,
+                      callbackFunction: (uniqueKey) {
+                        int selected = tabs
+                            .indexWhere((tabData) => tabData.key == uniqueKey);
+                        onTabChangedListener(
+                            selected, t.title, inactiveIconColor);
+                        _setSelected(uniqueKey);
+                        _initAnimationAndStart(_circleAlignX, 1);
+                      },
+                    )
+                  : TabItemNew(
+                      uniqueKey: t.key,
+                      selected: t.key == tabs[currentSelected].key,
+                      iconData: t.iconData,
+                      title: t.title,
+                      iconColor: inactiveIconColor,
+                      textColor: textColor,
+                      tabColor:
+                          t.tabColor == null ? inactiveIconColor : t.tabColor,
+                      callbackFunction: (uniqueKey) {
+                        int selected = tabs
+                            .indexWhere((tabData) => tabData.key == uniqueKey);
+                        onTabChangedListener(selected, t.title, t.tabColor);
+                        _setSelected(uniqueKey);
+                        _initAnimationAndStart(_circleAlignX, 1);
+                      },
+                    ),
+            )
+            .toList(),
+      ),
     );
   }
 
-  setUptabs(
-      CubertoDrawerStyle drawerStyle,
-      List<TabData> tabs,
-      Function(int position, String title, Color tabColor) onTabChangedListener,
-      Widget actions) {
+  setUpTabs(
+    CubertoDrawerStyle drawerStyle,
+    List<TabData> tabs,
+    Function(int position, String title, Color tabColor) onTabChangedListener,
+    Widget actions,
+  ) {
     Widget widget;
     if (drawerStyle == CubertoDrawerStyle.END_DRAWER) {
-      widget = Row(children: <Widget>[
-        Expanded(
-          child: rowTabs(tabs, onTabChangedListener),
-        ),
-        actions,
-      ]);
+      widget = Row(
+        children: <Widget>[
+          Expanded(
+            child: rowTabs(tabs, onTabChangedListener),
+          ),
+          actions,
+        ],
+      );
     } else if (drawerStyle == CubertoDrawerStyle.START_DRAWER) {
-      widget = Row(children: <Widget>[
-        actions,
-        Expanded(
-          child: rowTabs(tabs, onTabChangedListener),
-        ),
-      ]);
+      widget = Row(
+        children: <Widget>[
+          actions,
+          Expanded(
+            child: rowTabs(tabs, onTabChangedListener),
+          ),
+        ],
+      );
     } else {
       widget = rowTabs(tabs, onTabChangedListener);
     }
@@ -271,11 +305,12 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
 }
 
 class TabData {
-  TabData(
-      {@required this.iconData,
-      @required this.title,
-      this.onclick,
-      this.tabColor});
+  TabData({
+    @required this.iconData,
+    @required this.title,
+    this.onclick,
+    this.tabColor,
+  });
 
   IconData iconData;
   String title;
@@ -287,11 +322,10 @@ class TabData {
 class CubertoDrawer {
   final Icon icon;
   final CubertoDrawerStyle style;
+
   const CubertoDrawer({this.icon, this.style});
-
 }
+
 enum CubertoDrawerStyle { START_DRAWER, END_DRAWER, NO_DRAWER }
-
-
 
 enum CubertoTabStyle { STYLE_NORMAL, STYLE_FADED_BACKGROUND }

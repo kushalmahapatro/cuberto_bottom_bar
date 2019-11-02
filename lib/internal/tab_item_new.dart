@@ -32,7 +32,7 @@ class TabItemNew extends StatefulWidget {
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
   final double iconAlpha = ALPHA_ON;
-  GlobalKey stickyKey = GlobalKey();
+  final GlobalKey stickyKey = GlobalKey();
 
   @override
   _TabItemState createState() => _TabItemState();
@@ -57,6 +57,7 @@ class _TabItemState extends State<TabItemNew> {
                 widget.iconData,
                 color: widget.selected ? widget.tabColor : widget.iconColor,
               ),
+              SizedBox(width: 8.0),
               AnimatedContainer(
           duration: Duration(milliseconds: ANIM_DURATION),
             padding: widget.selected
