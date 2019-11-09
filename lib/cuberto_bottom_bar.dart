@@ -226,8 +226,8 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
                       title: t.title,
                       iconColor: inactiveIconColor,
                       textColor: textColor,
-                      tabColor:
-                          t.tabColor == null ? inactiveIconColor : t.tabColor,
+                      tabColor: t.tabColor == null ? inactiveIconColor : t.tabColor,
+                      borderRadius: t.borderRadius,
                       callbackFunction: (uniqueKey) {
                         int selected = tabs
                             .indexWhere((tabData) => tabData.key == uniqueKey);
@@ -244,8 +244,8 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
                       title: t.title,
                       iconColor: inactiveIconColor,
                       textColor: textColor,
-                      tabColor:
-                          t.tabColor == null ? inactiveIconColor : t.tabColor,
+                      tabColor: t.tabColor == null ? inactiveIconColor : t.tabColor,
+                      borderRadius: t.borderRadius,
                       callbackFunction: (uniqueKey) {
                         int selected = tabs
                             .indexWhere((tabData) => tabData.key == uniqueKey);
@@ -310,6 +310,7 @@ class TabData {
     @required this.title,
     this.onclick,
     this.tabColor,
+    this.borderRadius,
   });
 
   IconData iconData;
@@ -317,6 +318,7 @@ class TabData {
   Function onclick;
   Color tabColor;
   final UniqueKey key = UniqueKey();
+  final EdgeInsets borderRadius;
 }
 
 class CubertoDrawer {

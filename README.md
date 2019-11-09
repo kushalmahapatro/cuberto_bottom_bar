@@ -37,13 +37,15 @@ bottomNavigationBar: CubertoBottomBar(
         drawer: CubertoDrawer.NO_DRAWER, // By default its NO_DRAWER (Availble START_DRAWER and END_DRAWER as per where you want to how the drawer icon in Cuberto Bottom bar)
         tabs: [
           TabData(
-              iconData: Icons.home,
-              title: "Home",
-              tabColor: Colors.deepPurple),
+            iconData: Icons.home,
+            title: "Home",
+            tabColor: Colors.deepPurple,
+          ),
           TabData(
-              iconData: Icons.search,
-              title: "Search",
-              tabColor: Colors.pink),
+            iconData: Icons.search,
+            title: "Search",
+            tabColor: Colors.pink,
+          ),
           TabData(
               iconData: Icons.access_alarm,
               title: "Alarm",
@@ -83,7 +85,7 @@ bottomNavigationBar: CubertoBottomBar(
 * **tabStyle** -> Defaults to `CubertoTabStyle.STYLE_NORMAL`
 * **drawer** -> Defaults to `CubertoDrawer.NO_DRAWER` (can be set as `CubertoDrawer.START_DRAWER` or `CubertoDrawer.END_DRAWER` as per the need for the placement of drawer icon)
 * **key** -> Defaults to `null`
-* **padding** -> Defaults to `EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0)`. Modifies the inner padding of the bar.
+* **padding** -> Defaults to `EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0)`. Modifies the inner padding of the bar.
 * **barShadow** -> By default, adds a shadow to the bar. Can be disabled with an empty list, or modified with the desired `BoxShadow`.
 
 ## Theming
@@ -95,13 +97,11 @@ The bar will attempt to use your current theme out of the box, however you may w
 ## Cuberto Bottom Bar Theming - STYLE_NORMAL
 ![Cuberto Bottom Bar Theming - STYLE_NORMAL](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image2.png "Cuberto Bottom Bar Theming - STYLE_NORMAL")
 
-
 ## Showcase
-Using this package in a live app, let me know and I'll add you app here.
-
+If using this package in a live app, let me know and I'll add you app here.
 
 ## Inspiration
-This package was inspired by a design on dribbble by Sourabh Gupta and the faded backgorund style from Aurelien Salomon:
+This package was inspired by a design on dribbble by Sourabh Gupta and the faded background style from Aurelien Salomon:
 https://github.com/sourabhgupta811/CubertoBottomBar
 https://dribbble.com/shots/5925052-Google-Bottom-Bar-Navigation-Pattern
 https://www.instagram.com/p/BtyUbSkBlnF/

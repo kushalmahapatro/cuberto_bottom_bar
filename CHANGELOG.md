@@ -3,6 +3,7 @@
 * **Breaking change:** Minor UI tweaks
 * Added `padding` property
 * Added `barShadow` property
+* Added `borderRadius` property to `TabData`
 * Added `SafeArea` to render correctly on iPhones with gestures
 * Fixed some analyzer issues
 * Improved some code formatting
