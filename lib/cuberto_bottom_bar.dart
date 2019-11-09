@@ -182,7 +182,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
           padding: widget.padding ??
               EdgeInsets.symmetric(
                 horizontal: 12.0,
-                vertical: 16.0,
+                vertical: 8.0,
               ),
           decoration: BoxDecoration(
             color: barBackgroundColor,
