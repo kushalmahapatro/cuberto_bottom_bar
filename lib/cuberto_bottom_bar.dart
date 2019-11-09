@@ -318,7 +318,7 @@ class TabData {
   Function onclick;
   Color tabColor;
   final UniqueKey key = UniqueKey();
-  final EdgeInsets borderRadius;
+  final BorderRadius borderRadius;
 }
 
 class CubertoDrawer {

@@ -29,7 +29,7 @@ class TabItemNew extends StatefulWidget {
   final Color textColor;
   final Color iconColor;
   final Color tabColor;
-  final EdgeInsets borderRadius;
+  final BorderRadius borderRadius;
 
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
