@@ -9,15 +9,17 @@ const double ALPHA_OFF = 0;
 const double ALPHA_ON = 1;
 
 class TabItem extends StatefulWidget {
-  TabItem(
-      {@required this.uniqueKey,
-      @required this.selected,
-      @required this.iconData,
-      @required this.title,
-      @required this.callbackFunction,
-      @required this.textColor,
-      @required this.iconColor,
-      @required this.tabColor});
+  TabItem({
+    @required this.uniqueKey,
+    @required this.selected,
+    @required this.iconData,
+    @required this.title,
+    @required this.callbackFunction,
+    @required this.textColor,
+    @required this.iconColor,
+    @required this.tabColor,
+    this.borderRadius,
+  });
 
   final UniqueKey uniqueKey;
   final String title;
@@ -27,11 +29,12 @@ class TabItem extends StatefulWidget {
   final Color textColor;
   final Color iconColor;
   final Color tabColor;
+  final BorderRadius borderRadius;
 
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
   final double iconAlpha = ALPHA_ON;
-  GlobalKey stickyKey = GlobalKey();
+  final GlobalKey stickyKey = GlobalKey();
 
   @override
   _TabItemState createState() => _TabItemState();
@@ -42,11 +45,12 @@ class _TabItemState extends State<TabItem> {
   Widget build(BuildContext context) {
     return InkWell(
       child: AnimatedContainer(
-      padding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
-      duration: Duration(milliseconds: ANIM_DURATION),
-      decoration: BoxDecoration(
-          color: widget.selected ? widget.iconColor : Colors.transparent,
-          borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        padding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
+        duration: Duration(milliseconds: ANIM_DURATION),
+        decoration: BoxDecoration(
+            color: widget.selected ? widget.iconColor : Colors.transparent,
+            borderRadius:
+                widget.borderRadius ?? BorderRadius.all(Radius.circular(20.0))),
         child: AnimatedContainer(
           duration: Duration(milliseconds: ANIM_DURATION),
           child: Row(
@@ -56,9 +60,10 @@ class _TabItemState extends State<TabItem> {
                 widget.iconData,
                 color: widget.selected ? widget.textColor : widget.iconColor,
               ),
+              SizedBox(width: 8.0),
               AnimatedContainer(
-          duration: Duration(milliseconds: ANIM_DURATION),
-            padding: widget.selected
+                duration: Duration(milliseconds: ANIM_DURATION),
+                padding: widget.selected
                     ? EdgeInsets.only(left: 3.0, right: 3.0)
                     : EdgeInsets.all(0.0),
                 child: Text(
@@ -67,7 +72,7 @@ class _TabItemState extends State<TabItem> {
                   maxLines: 1,
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    color:  widget.textColor,
+                    color: widget.textColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
