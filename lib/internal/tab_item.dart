@@ -31,7 +31,6 @@ class TabItem extends StatefulWidget {
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
   final double iconAlpha = ALPHA_ON;
-  GlobalKey stickyKey = GlobalKey();
 
   @override
   _TabItemState createState() => _TabItemState();

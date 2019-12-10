@@ -49,7 +49,7 @@ class CubertoBottomBar extends StatefulWidget {
       this.textColor,
       this.tabColor,
       this.barBackgroundColor,
-      this.barBorderRadius = null,
+      this.barBorderRadius,
       this.drawer,
       this.tabStyle})
       : assert(onTabChangedListener != null),
@@ -174,7 +174,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
           height: BAR_HEIGHT,
           decoration: BoxDecoration(
             color: barBackgroundColor,
-            borderRadius: widget.barBorderRadius,
+            borderRadius: widget.barBorderRadius ?? null,
             boxShadow: [
               BoxShadow(
                   color: Colors.black12, offset: Offset(0, -1), blurRadius: 8)
