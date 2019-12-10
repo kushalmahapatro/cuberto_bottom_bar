@@ -1,18 +1,18 @@
 
 # Cuberto Bottom Bar
-Cuberto Bottom Bar in flutter<br/>
-## Cuberto Bottom bar Gif- Default Style<br/>
-![Cuberto Bottom bar Gif- Default Style](https://media.giphy.com/media/5RSvz7q2sj5HmmzVf1/giphy.gif "Cuberto Bottom bar Gif- Default Style") <br/>
+`CubertoBottomBar` widget in Flutter.
+## CubertoBottomBar - Default Style
+![CubertoBottomBar - Default Style](https://media.giphy.com/media/5RSvz7q2sj5HmmzVf1/giphy.gif "Cuberto Bottom bar Gif- Default Style")
 
-## Cuberto Bottom bar Gif- Faded Style<br/>
-![Cuberto Bottom bar Gif- Faded Style](https://media.giphy.com/media/8Twd7w3GZi12XFAPEQ/giphy.gif "Cuberto Bottom bar Gif- Faded Style") <br/>
+## CubertoBottomBar - Faded Style
+![CubertoBottomBar - Faded Style](https://media.giphy.com/media/8Twd7w3GZi12XFAPEQ/giphy.gif "Cuberto Bottom bar Gif- Faded Style")
 
 ## Getting Started
 
 ```yaml
 dependencies:
   ...
-  cuberto_bottom_bar: ^1.0.0
+  cuberto_bottom_bar: ^1.1.0
 ```
 
 ## Limitations
@@ -37,13 +37,15 @@ bottomNavigationBar: CubertoBottomBar(
         drawer: CubertoDrawer.NO_DRAWER, // By default its NO_DRAWER (Availble START_DRAWER and END_DRAWER as per where you want to how the drawer icon in Cuberto Bottom bar)
         tabs: [
           TabData(
-              iconData: Icons.home,
-              title: "Home",
-              tabColor: Colors.deepPurple),
+            iconData: Icons.home,
+            title: "Home",
+            tabColor: Colors.deepPurple,
+          ),
           TabData(
-              iconData: Icons.search,
-              title: "Search",
-              tabColor: Colors.pink),
+            iconData: Icons.search,
+            title: "Search",
+            tabColor: Colors.pink,
+          ),
           TabData(
               iconData: Icons.access_alarm,
               title: "Alarm",
@@ -64,46 +66,45 @@ bottomNavigationBar: CubertoBottomBar(
 ```
 
 ## TabData
-**iconData** -> Icon to be used for the tab<br/>
-**title** -> String to be used for the tab<br/>
-**tabColor:** -> Colors to be used for background and label when STYLE_FADED_BACKGROUND is choosed<br/>
+**iconData** -> Icon to be used for the tab
+**title** -> String to be used for the tab
+**tabColor:** -> Colors to be used for background and label when `STYLE_FADED_BACKGROUND` is chosen
 **onClick** -> Optional function to be used when the circle itself is clicked, on an active tab
 
 ## Attributes
-### required
-**tabs** -> List of `TabData` objects<br/>
-**onTabChangedListener** -> Function to handle a tap on a tab, receives `int position`, `String title` and `Color tabColor` (if not set will return inactiveIconColor in both STYLE_NORMAL and  STYLE_FADED_BACKGROUND)
+### Required
+* **tabs** -> List of `TabData` objects
+* **onTabChangedListener** -> Function to handle a tap on a tab, receives `int position`, `String title` and `Color tabColor` (if not set will return `inactiveIconColor` in both `STYLE_NORMAL` and `STYLE_FADED_BACKGROUND`)
 
-### optional
-**initialSelection** -> Defaults to 0<br/>
-**inactiveIconColor** -> Defaults to null, derives from `Theme`<br/>
-**textColor** -> Defaults to Colors.white<br/>
-**barBackgroundColor** -> Defaults to null, derives from `Theme`<br/>
-**barBorderRadius** -> Default to null (Scaffold's background color must be different than barBackgroundColor)<br/>
-**tabStyle** -> Defaults to CubertoTabStyle.STYLE_NORMAL<br/>
-**drawer** -> Defaults to CubertoDrawer.NO_DRAWER (can be set as CubertoDrawer.START_DRAWER or CubertoDrawer.END_DRAWER as per the need for the placement of drawer icon)
-**key** -> Defaults to null<br/>
+### Optional
+* **initialSelection** -> Defaults to `0`
+* **inactiveIconColor** -> Defaults to `null`, derives from `Theme`
+* **textColor** -> Defaults to `Colors.white`
+* **barBackgroundColor** -> Defaults to `null`, derives from `Theme`
+* **barBorderRadius** -> Default to null (`Scaffold`'s background color must be different than `barBackgroundColor`)
+* **tabStyle** -> Defaults to `CubertoTabStyle.STYLE_NORMAL`
+* **drawer** -> Defaults to `CubertoDrawer.NO_DRAWER` (can be set as `CubertoDrawer.START_DRAWER` or `CubertoDrawer.END_DRAWER` as per the need for the placement of drawer icon)
+* **key** -> Defaults to `null`
+* **padding** -> Defaults to `EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0)`. Modifies the inner padding of the bar.
+* **barShadow** -> By default, adds a shadow to the bar. Can be disabled with an empty list, or modified with the desired `BoxShadow`.
 
 ## Theming
-
 The bar will attempt to use your current theme out of the box, however you may want to theme it. Here are the attributes:
-## Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND
-![Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image1.png "Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND") <br/>
+
+## CubertoBottom BarTheming - STYLE_FADED_BACKGROUND
+![Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image1.png "Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND")
 
 ## Cuberto Bottom Bar Theming - STYLE_NORMAL
-![Cuberto Bottom Bar Theming - STYLE_NORMAL](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image2.png "Cuberto Bottom Bar Theming - STYLE_NORMAL") <br/>
-
+![Cuberto Bottom Bar Theming - STYLE_NORMAL](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image2.png "Cuberto Bottom Bar Theming - STYLE_NORMAL")
 
 ## Showcase
-Using this package in a live app, let me know and I'll add you app here.
-
+If using this package in a live app, let me know and I'll add you app here.
 
 ## Inspiration
+This package was inspired by a design on dribbble by Sourabh Gupta and the faded background style from Aurelien Salomon:
+https://github.com/sourabhgupta811/CubertoBottomBar
+https://dribbble.com/shots/5925052-Google-Bottom-Bar-Navigation-Pattern
+https://www.instagram.com/p/BtyUbSkBlnF/
 
-This package was inspired by a design on dribbble by Sourabh Gupta and the faded backgorund style from Aurelien Salomon:<br/>
-https://github.com/sourabhgupta811/CubertoBottomBar <br/>
-https://dribbble.com/shots/5925052-Google-Bottom-Bar-Navigation-Pattern <br/>
-https://www.instagram.com/p/BtyUbSkBlnF/ <br/>
 ## Contributing
-
 Contributions are welcome, please submit a PR :)

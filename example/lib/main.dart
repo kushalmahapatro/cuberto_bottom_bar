@@ -65,17 +65,25 @@ class _MyHomePageState extends State<MyHomePage> {
 //        drawer: CubertoDrawer(style: CubertoDrawerStyle.END_DRAWER, icon: Icon(Icons.sort)),
         tabs: [
           TabData(
-              iconData: Icons.home, title: "Home", tabColor: Colors.deepPurple),
+            iconData: Icons.home,
+            title: "Home",
+            tabColor: Colors.deepPurple,
+          ),
           TabData(
-              iconData: Icons.search, title: "Search", tabColor: Colors.pink),
+            iconData: Icons.search,
+            title: "Search",
+            tabColor: Colors.pink,
+          ),
           TabData(
-              iconData: Icons.access_alarm,
-              title: "Alarm",
-              tabColor: Colors.amber),
+            iconData: Icons.access_alarm,
+            title: "Alarm",
+            tabColor: Colors.amber,
+          ),
           TabData(
-              iconData: Icons.settings,
-              title: "Settings",
-              tabColor: Colors.teal),
+            iconData: Icons.settings,
+            title: "Settings",
+            tabColor: Colors.teal,
+          ),
         ],
         onTabChangedListener: (position, title, color) {
           setState(() {

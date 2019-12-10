@@ -1,3 +1,14 @@
+## [1.1.0]
+* **Breaking change:** Migration to AndroidX
+* **Breaking change:** Minor UI tweaks
+* Added `padding` property
+* Added `barShadow` property
+* Added `borderRadius` property to `TabData`
+* Added `SafeArea` to render correctly on iPhones with gestures
+* Fixed some analyzer issues
+* Improved some code formatting
+* Updated Kotlin and AS plugin example versions
+
 ## [1.0.0]
 
 * Increased button padding
