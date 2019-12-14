@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
       bottomNavigationBar: CubertoBottomBar(
         inactiveIconColor: inactiveColor,
         tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
-        selectedTab: 0, /// initial Selection has been renames to selectedTab, setting the index value to this will change the tab
+        selectedTab: currentPage, /// initial Selection has been renames to selectedTab, setting the index value to this will change the tab
         tabs: tabs.map((value) => TabData(
           iconData: value.icon,
           title: value.title,
