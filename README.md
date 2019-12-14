@@ -33,7 +33,7 @@ Adding the widget
 bottomNavigationBar: CubertoBottomBar(
         inactiveIconColor: inactiveColor,
         tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND, // By default its CubertoTabStyle.STYLE_NORMAL
-        initialSelection: 0, // By default its 0
+        selectedTab: currentPage, // By default its 0, Current page which is fetched when a tab is clickd, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
         drawer: CubertoDrawer.NO_DRAWER, // By default its NO_DRAWER (Availble START_DRAWER and END_DRAWER as per where you want to how the drawer icon in Cuberto Bottom bar)
         tabs: [
           TabData(
@@ -77,7 +77,7 @@ bottomNavigationBar: CubertoBottomBar(
 * **onTabChangedListener** -> Function to handle a tap on a tab, receives `int position`, `String title` and `Color tabColor` (if not set will return `inactiveIconColor` in both `STYLE_NORMAL` and `STYLE_FADED_BACKGROUND`)
 
 ### Optional
-* **initialSelection** -> Defaults to `0`
+* **selectedTab** -> Defaults to `0` (initialSelection has been changed to selectedTab) Current page which is fetched when a tab is clickd, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
 * **inactiveIconColor** -> Defaults to `null`, derives from `Theme`
 * **textColor** -> Defaults to `Colors.white`
 * **barBackgroundColor** -> Defaults to `null`, derives from `Theme`

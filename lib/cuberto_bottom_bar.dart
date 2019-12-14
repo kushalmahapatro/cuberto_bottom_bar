@@ -9,7 +9,8 @@ const int ANIM_DURATION = 300;
 
 class CubertoBottomBar extends StatefulWidget {
   /// The callback that will be executed each time the tab is changed
-  final Function(int position, String title, Color tabColor) onTabChangedListener;
+  final Function(int position, String title, Color tabColor)
+      onTabChangedListener;
 
   /// This color is used to show that the tab is inactive i.e not selected
   final Color inactiveIconColor;
@@ -29,8 +30,8 @@ class CubertoBottomBar extends StatefulWidget {
   /// [BorderRadius] to add border to the bottom bar.
   final BorderRadius barBorderRadius;
 
-  /// This color is used for the initial color of the text and the icon
-  final int initialSelection;
+  /// This int value is used to programtically change the index of the tabs
+  final int selectedTab;
 
   /// To add a navgation drawer of [CubertoDrawer] type
   final CubertoDrawer drawer;
@@ -51,7 +52,7 @@ class CubertoBottomBar extends StatefulWidget {
     @required this.tabs,
     @required this.onTabChangedListener,
     this.key,
-    this.initialSelection = 0,
+    this.selectedTab = 0,
     this.inactiveIconColor,
     this.textColor,
     this.tabColor,
@@ -137,12 +138,11 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
     } else {
       tabStyle = widget.tabStyle;
     }
-    _setSelected(widget.tabs[widget.initialSelection].key);
+    _setSelected(widget.tabs[widget.selectedTab ?? 0].key);
   }
 
   _setSelected(UniqueKey key) {
     int selected = widget.tabs.indexWhere((tabData) => tabData.key == key);
-
     if (mounted) {
       setState(() {
         currentSelected = selected;
@@ -154,6 +154,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
 
   @override
   Widget build(BuildContext context) {
+    _setSelected(widget.tabs[widget.selectedTab].key);
     void _handleDrawerButton() {
       Scaffold.of(context).openDrawer();
     }
@@ -226,9 +227,11 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
                       title: t.title,
                       iconColor: inactiveIconColor,
                       textColor: textColor,
-                      tabColor: t.tabColor == null ? inactiveIconColor : t.tabColor,
+                      tabColor:
+                          t.tabColor == null ? inactiveIconColor : t.tabColor,
                       borderRadius: t.borderRadius,
                       callbackFunction: (uniqueKey) {
+                        widget.onTabChangedListener(currentSelected, widget.tabs[currentSelected].title, widget.tabs[currentSelected].tabColor );
                         int selected = tabs
                             .indexWhere((tabData) => tabData.key == uniqueKey);
                         onTabChangedListener(
@@ -244,9 +247,12 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
                       title: t.title,
                       iconColor: inactiveIconColor,
                       textColor: textColor,
-                      tabColor: t.tabColor == null ? inactiveIconColor : t.tabColor,
+                      tabColor:
+                          t.tabColor == null ? inactiveIconColor : t.tabColor,
                       borderRadius: t.borderRadius,
                       callbackFunction: (uniqueKey) {
+                        widget.onTabChangedListener(currentSelected, widget.tabs[currentSelected].title, widget.tabs[currentSelected].tabColor );
+
                         int selected = tabs
                             .indexWhere((tabData) => tabData.key == uniqueKey);
                         onTabChangedListener(selected, t.title, t.tabColor);
@@ -258,6 +264,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
             .toList(),
       ),
     );
+
   }
 
   setUpTabs(

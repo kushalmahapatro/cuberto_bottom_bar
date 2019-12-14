@@ -43,6 +43,9 @@ class TabItemNew extends StatefulWidget {
 class _TabItemState extends State<TabItemNew> {
   @override
   Widget build(BuildContext context) {
+    if(widget.selected){
+//      widget.callbackFunction(widget.uniqueKey);
+    }
     return InkWell(
       child: AnimatedContainer(
         padding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
