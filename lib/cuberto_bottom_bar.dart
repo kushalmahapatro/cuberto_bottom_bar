@@ -218,53 +218,34 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: tabs
-            .map(
-              (t) => tabStyle == CubertoTabStyle.STYLE_NORMAL
-                  ? TabItem(
-                      uniqueKey: t.key,
-                      selected: t.key == tabs[currentSelected].key,
-                      iconData: t.iconData,
-                      title: t.title,
-                      iconColor: inactiveIconColor,
-                      textColor: textColor,
-                      tabColor:
-                          t.tabColor == null ? inactiveIconColor : t.tabColor,
-                      borderRadius: t.borderRadius,
-                      callbackFunction: (uniqueKey) {
-                        widget.onTabChangedListener(currentSelected, widget.tabs[currentSelected].title, widget.tabs[currentSelected].tabColor );
-                        int selected = tabs
-                            .indexWhere((tabData) => tabData.key == uniqueKey);
-                        onTabChangedListener(
-                            selected, t.title, inactiveIconColor);
-                        _setSelected(uniqueKey);
-                        _initAnimationAndStart(_circleAlignX, 1);
-                      },
-                    )
-                  : TabItemNew(
-                      uniqueKey: t.key,
-                      selected: t.key == tabs[currentSelected].key,
-                      iconData: t.iconData,
-                      title: t.title,
-                      iconColor: inactiveIconColor,
-                      textColor: textColor,
-                      tabColor:
-                          t.tabColor == null ? inactiveIconColor : t.tabColor,
-                      borderRadius: t.borderRadius,
-                      callbackFunction: (uniqueKey) {
-                        widget.onTabChangedListener(currentSelected, widget.tabs[currentSelected].title, widget.tabs[currentSelected].tabColor );
-
-                        int selected = tabs
-                            .indexWhere((tabData) => tabData.key == uniqueKey);
-                        onTabChangedListener(selected, t.title, t.tabColor);
-                        _setSelected(uniqueKey);
-                        _initAnimationAndStart(_circleAlignX, 1);
-                      },
-                    ),
-            )
+            .map((t) =>
+                // tabStyle == CubertoTabStyle.STYLE_NORMAL ?
+                TabItem(
+                  tabStyle: tabStyle,
+                  uniqueKey: t.key,
+                  selected: t.key == tabs[currentSelected].key,
+                  iconData: t.iconData,
+                  title: t.title,
+                  iconColor: inactiveIconColor,
+                  textColor: textColor,
+                  backGroundGradientColor: t.tabGradient,
+                  tabColor: t.tabColor == null ? inactiveIconColor : t.tabColor,
+                  borderRadius: t.borderRadius,
+                  callbackFunction: (uniqueKey) {
+                    widget.onTabChangedListener(
+                        currentSelected,
+                        widget.tabs[currentSelected].title,
+                        widget.tabs[currentSelected].tabColor);
+                    int selected =
+                        tabs.indexWhere((tabData) => tabData.key == uniqueKey);
+                    onTabChangedListener(selected, t.title, inactiveIconColor);
+                    _setSelected(uniqueKey);
+                    _initAnimationAndStart(_circleAlignX, 1);
+                  },
+                ))
             .toList(),
       ),
     );
-
   }
 
   setUpTabs(
@@ -312,18 +293,20 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
 }
 
 class TabData {
-  TabData({
-    @required this.iconData,
-    @required this.title,
-    this.onclick,
-    this.tabColor,
-    this.borderRadius,
-  });
+  TabData(
+      {@required this.iconData,
+      @required this.title,
+      this.onclick,
+      this.tabColor,
+      this.borderRadius,
+      this.tabGradient});
 
   IconData iconData;
   String title;
   Function onclick;
   Color tabColor;
+  Gradient tabGradient;
+
   final UniqueKey key = UniqueKey();
   final BorderRadius borderRadius;
 }

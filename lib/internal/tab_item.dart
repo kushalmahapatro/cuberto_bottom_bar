@@ -9,17 +9,18 @@ const double ALPHA_OFF = 0;
 const double ALPHA_ON = 1;
 
 class TabItem extends StatefulWidget {
-  TabItem({
-    @required this.uniqueKey,
-    @required this.selected,
-    @required this.iconData,
-    @required this.title,
-    @required this.callbackFunction,
-    @required this.textColor,
-    @required this.iconColor,
-    @required this.tabColor,
-    this.borderRadius,
-  });
+  TabItem(
+      {@required this.uniqueKey,
+      @required this.selected,
+      @required this.iconData,
+      @required this.title,
+      @required this.callbackFunction,
+      @required this.textColor,
+      @required this.iconColor,
+      @required this.tabColor,
+      this.borderRadius,
+      this.backGroundGradientColor,
+      this.tabStyle});
 
   final UniqueKey uniqueKey;
   final String title;
@@ -29,12 +30,14 @@ class TabItem extends StatefulWidget {
   final Color textColor;
   final Color iconColor;
   final Color tabColor;
+  final Gradient backGroundGradientColor;
   final BorderRadius borderRadius;
 
   final double iconYAlign = ICON_ON;
   final double textYAlign = TEXT_OFF;
   final double iconAlpha = ALPHA_ON;
   final GlobalKey stickyKey = GlobalKey();
+  final CubertoTabStyle tabStyle;
 
   @override
   _TabItemState createState() => _TabItemState();
@@ -43,12 +46,46 @@ class TabItem extends StatefulWidget {
 class _TabItemState extends State<TabItem> {
   @override
   Widget build(BuildContext context) {
+    Color finalColor = Colors.transparent;
+    Gradient backGradient = LinearGradient(
+        colors: [Colors.transparent, Colors.transparent], stops: [0.0, 0.7]);
+    Color iconColor = widget.iconColor;
+    if (widget.tabStyle == CubertoTabStyle.STYLE_NORMAL) {
+      finalColor = widget.selected ? widget.iconColor : Colors.transparent;
+      backGradient = widget.selected
+          ? LinearGradient(
+              colors: [widget.iconColor, widget.iconColor], stops: [0.0, 0.7])
+          : LinearGradient(
+              colors: [Colors.transparent, Colors.transparent],
+              stops: [0.0, 0.7]);
+      iconColor = widget.selected ? widget.textColor : widget.iconColor;
+    } else {
+      finalColor = widget.selected
+          ? widget.tabColor.withOpacity(0.1)
+          : Colors.transparent;
+      backGradient = widget.selected
+          ? widget.backGroundGradientColor != null
+              ? widget.backGroundGradientColor
+              : LinearGradient(colors: [
+                  widget.tabColor.withOpacity(0.1),
+                  widget.tabColor.withOpacity(0.1)
+                ], stops: [
+                  0.0,
+                  0.7
+                ])
+          : LinearGradient(
+              colors: [Colors.transparent, Colors.transparent],
+              stops: [0.0, 0.7]);
+      iconColor = widget.selected ? widget.tabColor : widget.iconColor;
+    }
+
     return InkWell(
       child: AnimatedContainer(
         padding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
         duration: Duration(milliseconds: ANIM_DURATION),
         decoration: BoxDecoration(
-            color: widget.selected ? widget.iconColor : Colors.transparent,
+            // color: widget.backGroundGradientColor != null ? Colors.transparent : finalColor,
+            gradient: backGradient,
             borderRadius:
                 widget.borderRadius ?? BorderRadius.all(Radius.circular(20.0))),
         child: AnimatedContainer(
@@ -58,7 +95,7 @@ class _TabItemState extends State<TabItem> {
             children: <Widget>[
               Icon(
                 widget.iconData,
-                color: widget.selected ? widget.textColor : widget.iconColor,
+                color: iconColor,
               ),
               SizedBox(width: 8.0),
               AnimatedContainer(
@@ -72,7 +109,7 @@ class _TabItemState extends State<TabItem> {
                   maxLines: 1,
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    color: widget.textColor,
+                    color: iconColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

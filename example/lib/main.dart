@@ -1,5 +1,7 @@
 import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,11 +10,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.black.withOpacity(1),
+        statusBarIconBrightness: Brightness.light));
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.light(),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -25,8 +29,9 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderStateMixin  {
-  int currentPage ;
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  int currentPage;
   Color currentColor = Colors.deepPurple;
   Color inactiveColor = Colors.black;
   TabController tabBarController;
@@ -34,55 +39,66 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     currentPage = 0;
-    tabs.add(Tabs(Icons.home, "Home", Colors.deepPurple));
-    tabs.add(Tabs(Icons.search, "Search", Colors.pink));
-    tabs.add(Tabs(Icons.alarm, "Alarm", Colors.amber));
-    tabs.add(Tabs(Icons.settings, "Settings", Colors.teal));
+    tabs.add(Tabs(
+      Icons.home,
+      "Home",
+      Colors.deepPurple,
+      getGradient(Colors.deepPurple),
+    ));
+    tabs.add(
+        Tabs(Icons.search, "Search", Colors.pink, getGradient(Colors.pink)));
+    tabs.add(
+        Tabs(Icons.alarm, "Alarm", Colors.amber, getGradient(Colors.amber)));
+    tabs.add(Tabs(
+        Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal)));
     tabBarController =
-    new TabController(initialIndex: currentPage, length: 4, vsync: this);
-
+        new TabController(initialIndex: currentPage, length: 4, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: TabBarView(
-        controller: tabBarController,
-        physics: NeverScrollableScrollPhysics(),
-        children: {2,3,1,0}.map((index) => Container(
-          decoration: BoxDecoration(color: tabs[currentPage].color),
-          child: InkWell(
-              child: Center(
-                  child:
-                  Column(
-                    mainAxisAlignment:  MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        tabs[currentPage].title ,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 20.0,fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "Click here to Change the tab To "+tabs[index].title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 14.0),
-                      ),
-                    ],
-                  )),
-              onTap: () {
-                setState(() {
-                  currentPage = index;
-                  tabBarController.animateTo(currentPage);
-                });
-              }),
-        ),).toList()
-      ),
-
+          controller: tabBarController,
+          physics: NeverScrollableScrollPhysics(),
+          children: {2, 3, 1, 0}
+              .map(
+                (index) => Container(
+                  decoration: BoxDecoration(color: tabs[currentPage].color),
+                  child: InkWell(
+                      child: Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            tabs[currentPage].title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "Click here to Change the tab To " +
+                                tabs[index].title,
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14.0),
+                          ),
+                        ],
+                      )),
+                      onTap: () {
+                        setState(() {
+                          currentPage = index;
+                          tabBarController.animateTo(currentPage);
+                        });
+                      }),
+                ),
+              )
+              .toList()),
       drawer: new Container(
           width: 250.0,
           margin: EdgeInsets.only(bottom: 60.0),
@@ -100,19 +116,21 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
       bottomNavigationBar: CubertoBottomBar(
         inactiveIconColor: inactiveColor,
         tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
-        selectedTab: currentPage, /// initial Selection has been renames to selectedTab, setting the index value to this will change the tab
-        tabs: tabs.map((value) => TabData(
-          iconData: value.icon,
-          title: value.title,
-          tabColor: value.color,
-        )).toList(),
+        selectedTab: currentPage,
+        tabs: tabs
+            .map((value) => TabData(
+                iconData: value.icon,
+                title: value.title,
+                tabColor: value.color,
+                tabGradient: value.gradient))
+            .toList(),
         onTabChangedListener: (position, title, color) {
           setState(() {
             tabBarController.animateTo(position);
             currentPage = position;
           });
         },
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 
@@ -123,10 +141,17 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
   }
 }
 
-class Tabs{
+class Tabs {
   final IconData icon;
   final String title;
   final Color color;
+  final Gradient gradient;
 
-  Tabs(this.icon, this.title, this.color);
+  Tabs(this.icon, this.title, this.color, this.gradient);
+}
+
+getGradient(Color color) {
+  return LinearGradient(
+      colors: [color.withOpacity(0.5), color.withOpacity(0.1)],
+      stops: [0.0, 0.7]);
 }
