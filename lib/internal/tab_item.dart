@@ -46,12 +46,10 @@ class TabItem extends StatefulWidget {
 class _TabItemState extends State<TabItem> {
   @override
   Widget build(BuildContext context) {
-    Color finalColor = Colors.transparent;
     Gradient backGradient = LinearGradient(
         colors: [Colors.transparent, Colors.transparent], stops: [0.0, 0.7]);
     Color iconColor = widget.iconColor;
     if (widget.tabStyle == CubertoTabStyle.STYLE_NORMAL) {
-      finalColor = widget.selected ? widget.iconColor : Colors.transparent;
       backGradient = widget.selected
           ? LinearGradient(
               colors: [widget.iconColor, widget.iconColor], stops: [0.0, 0.7])
@@ -60,9 +58,6 @@ class _TabItemState extends State<TabItem> {
               stops: [0.0, 0.7]);
       iconColor = widget.selected ? widget.textColor : widget.iconColor;
     } else {
-      finalColor = widget.selected
-          ? widget.tabColor.withOpacity(0.1)
-          : Colors.transparent;
       backGradient = widget.selected
           ? widget.backGroundGradientColor != null
               ? widget.backGroundGradientColor

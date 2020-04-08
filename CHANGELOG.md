@@ -1,3 +1,7 @@
+## [1.1.1+2]
+
+- Some issue fixes.
+
 ## [1.1.1+1]
 
 - Added `tabGradient` property to add background gradient to the selcted tab.

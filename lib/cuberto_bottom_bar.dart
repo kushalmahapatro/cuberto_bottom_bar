@@ -1,7 +1,6 @@
 library cuberto_bottom_bar;
 
 import 'package:cuberto_bottom_bar/internal/tab_item.dart';
-import 'package:cuberto_bottom_bar/internal/tab_item_new.dart';
 
 import 'package:flutter/material.dart';
 
