@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -34,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage>
   int currentPage;
   Color currentColor = Colors.deepPurple;
   Color inactiveColor = Colors.black;
-  TabController tabBarController;
+  PageController tabBarController;
   List<Tabs> tabs = new List();
 
   @override
@@ -53,52 +54,54 @@ class _MyHomePageState extends State<MyHomePage>
         Tabs(Icons.alarm, "Alarm", Colors.amber, getGradient(Colors.amber)));
     tabs.add(Tabs(
         Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal)));
-    tabBarController =
-        new TabController(initialIndex: currentPage, length: 4, vsync: this);
+    tabBarController = new PageController(initialPage: 0);
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget tabView({int destinationIndex}) {
+      return Container(
+          decoration: BoxDecoration(color: tabs[currentPage].color),
+          child: InkWell(
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    tabs[currentPage].title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    "Click here to Change the tab To " +
+                        tabs[destinationIndex].title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 14.0),
+                  ),
+                ],
+              )),
+              onTap: () {
+                setState(() {
+                  currentPage = destinationIndex;
+                  tabBarController.jumpToPage(currentPage);
+                });
+              }));
+    }
+
     return Scaffold(
-      body: TabBarView(
+      body: PageView(
           controller: tabBarController,
           physics: NeverScrollableScrollPhysics(),
-          children: {2, 3, 1, 0}
-              .map(
-                (index) => Container(
-                  decoration: BoxDecoration(color: tabs[currentPage].color),
-                  child: InkWell(
-                      child: Center(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            tabs[currentPage].title,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            "Click here to Change the tab To " +
-                                tabs[index].title,
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 14.0),
-                          ),
-                        ],
-                      )),
-                      onTap: () {
-                        setState(() {
-                          currentPage = index;
-                          tabBarController.animateTo(currentPage);
-                        });
-                      }),
-                ),
-              )
-              .toList()),
+          children: <Widget>[
+            tabView(destinationIndex: 3),
+            tabView(destinationIndex: 0),
+            tabView(destinationIndex: 1),
+            tabView(destinationIndex: 2)
+          ]),
       drawer: new Container(
           width: 250.0,
           margin: EdgeInsets.only(bottom: 60.0),
@@ -114,11 +117,13 @@ class _MyHomePageState extends State<MyHomePage>
             children: <Widget>[Text("Hello"), Text("World")],
           )),
       bottomNavigationBar: CubertoBottomBar(
+        key: Key("BottomBar"),
         inactiveIconColor: inactiveColor,
         tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
         selectedTab: currentPage,
         tabs: tabs
             .map((value) => TabData(
+                key: Key(value.title),
                 iconData: value.icon,
                 title: value.title,
                 tabColor: value.color,
@@ -126,8 +131,8 @@ class _MyHomePageState extends State<MyHomePage>
             .toList(),
         onTabChangedListener: (position, title, color) {
           setState(() {
-            tabBarController.animateTo(position);
             currentPage = position;
+            tabBarController.jumpToPage(position);
           });
         },
       ),

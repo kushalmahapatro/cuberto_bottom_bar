@@ -9,9 +9,50 @@ const double ALPHA_OFF = 0;
 const double ALPHA_ON = 1;
 
 class TabItem extends StatefulWidget {
+  /// This title is used in the Tab as text
+  final String title;
+
+  /// This icon is used as Tab icon
+  final IconData iconData;
+
+  /// This bool is used to know if the respective tab is selected or not
+  final bool selected;
+
+  /// This callbackFunction is called when the Tab is clicked
+  final Function(Key uniqueKey) callbackFunction;
+
+  /// This color is used fot the text inside the Tab
+  final Color textColor;
+
+  /// This color is used as the icon color of the Tab
+  final Color iconColor;
+
+  /// This color is used as the Tab background color
+  final Color tabColor;
+
+  /// This gradient is used a the background gradient color of the Tab
+  final Gradient backGroundGradientColor;
+
+  /// This radius is used the borderRadius of the Tab
+  final BorderRadius borderRadius;
+
+  /// This value is used to YAlignment of the icon of the Tab
+  final double iconYAlign = ICON_ON;
+
+  /// This value is used to YAlignment of the text of the Tab
+  final double textYAlign = TEXT_OFF;
+
+  /// This value is used as the alpha of the icon of the Tab
+  final double iconAlpha = ALPHA_ON;
+
+  /// This value is used as a GlobalKey of the Tab
+  final GlobalKey stickyKey = GlobalKey();
+
+  /// This style is used to set the tabStyle
+  final CubertoTabStyle tabStyle;
+
   TabItem(
-      {@required this.uniqueKey,
-      @required this.selected,
+      {@required this.selected,
       @required this.iconData,
       @required this.title,
       @required this.callbackFunction,
@@ -20,24 +61,10 @@ class TabItem extends StatefulWidget {
       @required this.tabColor,
       this.borderRadius,
       this.backGroundGradientColor,
-      this.tabStyle});
+      this.tabStyle,
+      Key key})
+      : super(key: key);
 
-  final UniqueKey uniqueKey;
-  final String title;
-  final IconData iconData;
-  final bool selected;
-  final Function(UniqueKey uniqueKey) callbackFunction;
-  final Color textColor;
-  final Color iconColor;
-  final Color tabColor;
-  final Gradient backGroundGradientColor;
-  final BorderRadius borderRadius;
-
-  final double iconYAlign = ICON_ON;
-  final double textYAlign = TEXT_OFF;
-  final double iconAlpha = ALPHA_ON;
-  final GlobalKey stickyKey = GlobalKey();
-  final CubertoTabStyle tabStyle;
 
   @override
   _TabItemState createState() => _TabItemState();
@@ -79,7 +106,6 @@ class _TabItemState extends State<TabItem> {
         padding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
         duration: Duration(milliseconds: ANIM_DURATION),
         decoration: BoxDecoration(
-            // color: widget.backGroundGradientColor != null ? Colors.transparent : finalColor,
             gradient: backGradient,
             borderRadius:
                 widget.borderRadius ?? BorderRadius.all(Radius.circular(20.0))),
@@ -114,7 +140,8 @@ class _TabItemState extends State<TabItem> {
         ),
       ),
       onTap: () {
-        widget.callbackFunction(widget.uniqueKey);
+        /// Callback called when the Tab is clicked
+        widget.callbackFunction(widget.key);
       },
     );
   }

@@ -15,7 +15,7 @@
 ```yaml
 dependencies:
   ...
-  cuberto_bottom_bar: ^1.1.1+1
+  cuberto_bottom_bar: ^1.1.2+3
 ```
 
 ## Limitations
@@ -37,12 +37,14 @@ Adding the widget
 
 ```dart
 bottomNavigationBar: CubertoBottomBar(
+        key: Key("BottomBar"),
         inactiveIconColor: inactiveColor,
         tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND, // By default its CubertoTabStyle.STYLE_NORMAL
         selectedTab: currentPage, // By default its 0, Current page which is fetched when a tab is clickd, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
         drawer: CubertoDrawer.NO_DRAWER, // By default its NO_DRAWER (Availble START_DRAWER and END_DRAWER as per where you want to how the drawer icon in Cuberto Bottom bar)
         tabs: tabs
             .map((value) => TabData(
+                key: Key(value.title), 
                 iconData: value.icon,
                 title: value.title,
                 tabColor: value.color,
@@ -81,7 +83,7 @@ tabs.add(Tabs(Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal))
 ```
 
 ## TabData
-
+**key** -> Pass a Key to set it to TabItem or else by default UniqueKey() will be set
 **iconData** -> Icon to be used for the tab
 **title** -> String to be used for the tab
 **tabColor:** -> Colors to be used for background and label when `STYLE_FADED_BACKGROUND` is chosen
@@ -97,6 +99,7 @@ tabs.add(Tabs(Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal))
 
 ### Optional
 
+- **key** -> Unique Key to set an identity to the widget
 - **selectedTab** -> Defaults to `0` (initialSelection has been changed to selectedTab) Current page which is fetched when a tab is clickd, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
 - **inactiveIconColor** -> Defaults to `null`, derives from `Theme`
 - **textColor** -> Defaults to `Colors.white`
@@ -126,7 +129,7 @@ If using this package in a live app, let me know and I'll add you app here.
 
 ## Inspiration
 
-This package was inspired by a design on dribbble by Sourabh Gupta and the faded background style from Aurelien Salomon:
+This package has been inspired by a design on dribbble by Sourabh Gupta and the faded background style from Aurelien Salomon:
 https://github.com/sourabhgupta811/CubertoBottomBar
 https://dribbble.com/shots/5925052-Google-Bottom-Bar-Navigation-Pattern
 https://www.instagram.com/p/BtyUbSkBlnF/

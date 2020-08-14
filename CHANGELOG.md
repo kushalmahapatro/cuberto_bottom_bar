@@ -1,14 +1,18 @@
+## [1.1.2+3]
+
+- Key added to TabItem
+
 ## [1.1.1+2]
 
 - Some issue fixes.
 
 ## [1.1.1+1]
 
-- Added `tabGradient` property to add background gradient to the selcted tab.
+- Added `tabGradient` property to add background gradient to the selected tab.
 
 ## [1.1.1]
 
-- Added feature to programmatically change the tab.
+- Added a feature to programmatically change the tab.
 - initialSelection has been changed to selectedTab which has the set with the current index / position of the tab fetched from onTabChangedListener.
 
 ## [1.1.0]

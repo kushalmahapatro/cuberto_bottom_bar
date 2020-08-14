@@ -29,7 +29,7 @@ class CubertoBottomBar extends StatefulWidget {
   /// [BorderRadius] to add border to the bottom bar.
   final BorderRadius barBorderRadius;
 
-  /// This int value is used to programtically change the index of the tabs
+  /// This int value is used to programmatically change the index of the tabs
   final int selectedTab;
 
   /// To add a navgation drawer of [CubertoDrawer] type
@@ -73,26 +73,21 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
     with TickerProviderStateMixin, RouteAware {
   IconData nextIcon = Icons.search;
   IconData activeIcon = Icons.search;
-
   int currentSelected = 0;
   double _circleAlignX = 0;
-
   Color circleColor;
   Color activeIconColor;
   Color inactiveIconColor;
   Color barBackgroundColor;
   Color textColor;
   Color tabColor;
-
   CubertoDrawerStyle drawerStyle;
   CubertoTabStyle tabStyle;
-
   Icon drawerIcon;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     activeIcon = widget.tabs[currentSelected].iconData;
     barBackgroundColor = (widget.barBackgroundColor == null)
         ? (Theme.of(context).brightness == Brightness.dark)
@@ -112,6 +107,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
   @override
   void initState() {
     super.initState();
+    // If widget.drawer is null then set CubertoDrawerStyle.NO_DRAWER where no drawer will be added to screen
     if (widget.drawer == null) {
       drawerStyle = CubertoDrawerStyle.NO_DRAWER;
       drawerIcon = Icon(
@@ -140,8 +136,8 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
     _setSelected(widget.tabs[widget.selectedTab ?? 0].key);
   }
 
-  _setSelected(UniqueKey key) {
-    int selected = widget.tabs.indexWhere((tabData) => tabData.key == key);
+  _setSelected(Key key) {
+    int selected = widget.tabs.indexWhere((tabData) => tabData.key.toString() == key.toString());
     if (mounted) {
       setState(() {
         currentSelected = selected;
@@ -153,16 +149,19 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
 
   @override
   Widget build(BuildContext context) {
+    // method to make a particular tab selected
     _setSelected(widget.tabs[widget.selectedTab].key);
     void _handleDrawerButton() {
       Scaffold.of(context).openDrawer();
     }
 
+    // method to handle the drawer button
     void _handleDrawerButtonEnd() {
       Scaffold.of(context).openEndDrawer();
     }
 
     Widget actions;
+    // set action as drawerStyle
     if (drawerStyle != CubertoDrawerStyle.NO_DRAWER) {
       actions = IconButton(
         icon: drawerIcon,
@@ -171,7 +170,9 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
             : _handleDrawerButton,
         tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
       );
-    } else {
+    }
+    // when no drawerStyle is set then a blank Container is set as action
+    else {
       actions = Container();
     }
     return Stack(
@@ -218,10 +219,9 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: tabs
             .map((t) =>
-                // tabStyle == CubertoTabStyle.STYLE_NORMAL ?
                 TabItem(
+                  key: t.key,
                   tabStyle: tabStyle,
-                  uniqueKey: t.key,
                   selected: t.key == tabs[currentSelected].key,
                   iconData: t.iconData,
                   title: t.title,
@@ -231,15 +231,11 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
                   tabColor: t.tabColor == null ? inactiveIconColor : t.tabColor,
                   borderRadius: t.borderRadius,
                   callbackFunction: (uniqueKey) {
-                    widget.onTabChangedListener(
-                        currentSelected,
-                        widget.tabs[currentSelected].title,
-                        widget.tabs[currentSelected].tabColor);
                     int selected =
-                        tabs.indexWhere((tabData) => tabData.key == uniqueKey);
-                    onTabChangedListener(selected, t.title, inactiveIconColor);
+                        tabs.indexWhere((tabData) => tabData.key.toString() == uniqueKey.toString());
                     _setSelected(uniqueKey);
                     _initAnimationAndStart(_circleAlignX, 1);
+                    onTabChangedListener(selected, t.title, inactiveIconColor);
                   },
                 ))
             .toList(),
@@ -292,31 +288,53 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
 }
 
 class TabData {
+  /// This iconData will be used in the Tab
+  IconData iconData;
+
+  /// This string will be used as the text inside the Tab
+  String title;
+
+  /// This onclick function to be called when clicked on Tab
+  Function onclick;
+
+  /// This color is set as the background color of the Tab
+  Color tabColor;
+
+  /// This gradient color is used a the background gradient of the Tab
+  Gradient tabGradient;
+
+  /// This borderRadius is used as the the borderRadius of the Tab
+  BorderRadius borderRadius;
+
+  /// This key is used as unique value to the Tab (if not set default UniqueKey will be added to the Tab)
+  Key key;
+
+
   TabData(
       {@required this.iconData,
       @required this.title,
       this.onclick,
       this.tabColor,
       this.borderRadius,
-      this.tabGradient});
+      this.tabGradient,
+      this.key }) { key = key == null ?  UniqueKey() : key;}
 
-  IconData iconData;
-  String title;
-  Function onclick;
-  Color tabColor;
-  Gradient tabGradient;
 
-  final UniqueKey key = UniqueKey();
-  final BorderRadius borderRadius;
 }
 
 class CubertoDrawer {
+
+  /// This icon will be used as the drawer icon
   final Icon icon;
+
+  /// This style will be used to decide where the drawer icon will be placed
   final CubertoDrawerStyle style;
 
   const CubertoDrawer({this.icon, this.style});
 }
 
+/// enum to set teh drawer position
 enum CubertoDrawerStyle { START_DRAWER, END_DRAWER, NO_DRAWER }
 
+/// enum to set the tab style
 enum CubertoTabStyle { STYLE_NORMAL, STYLE_FADED_BACKGROUND }
