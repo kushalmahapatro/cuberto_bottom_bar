@@ -21,8 +21,8 @@ dependencies:
 ## Limitations
 
 For now this is limited to more than 1 tab, and less than 5. So 2-4 tabs.
-textColor will only be applied in the case of STYLE_NORMAL,
-in case of STYLE_FADED_BACKGROUND the tabColor will be set as textColor,(if tabColor is not set inactiveColor will be set)
+textColor will only be applied in the case of STYLE_NORMAL.
+In case of STYLE_FADED_BACKGROUND the tabColor will be set as textColor,(if tabColor is not set inactiveColor will be set)
 
 manually drawer or endDrawer has to be added and then respective drawer has to be added in CubertoBottomBar (
 CubertoDrawer.NO_DRAWER for no drawer, CubertoDrawer.START_DRAWER for drawer and CubertoDrawer.END_DRAWER for endDrawer)
