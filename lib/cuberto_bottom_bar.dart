@@ -4,7 +4,7 @@ import 'package:cuberto_bottom_bar/internal/tab_item.dart';
 
 import 'package:flutter/material.dart';
 
-const int ANIM_DURATION = 300;
+const int kAnimationDuration = 300;
 
 class CubertoBottomBar extends StatefulWidget {
   /// The callback that will be executed each time the tab is changed
@@ -69,8 +69,7 @@ class CubertoBottomBar extends StatefulWidget {
   CubertoBottomBarState createState() => CubertoBottomBarState();
 }
 
-class CubertoBottomBarState extends State<CubertoBottomBar>
-    with TickerProviderStateMixin, RouteAware {
+class CubertoBottomBarState extends State<CubertoBottomBar> {
   IconData nextIcon = Icons.search;
   IconData activeIcon = Icons.search;
   int currentSelected = 0;
@@ -175,36 +174,30 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
     else {
       actions = Container();
     }
-    return Stack(
-      overflow: Overflow.clip,
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        Container(
-          padding: widget.padding ??
-              EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 8.0,
+    return Container(
+      padding: widget.padding ??
+          EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 8.0,
+          ),
+      decoration: BoxDecoration(
+        color: barBackgroundColor,
+        borderRadius: widget.barBorderRadius,
+        boxShadow: widget.barShadow ??
+            <BoxShadow>[
+              BoxShadow(
+                color: Colors.black12,
+                offset: Offset(0, -1),
+                blurRadius: 8,
               ),
-          decoration: BoxDecoration(
-            color: barBackgroundColor,
-            borderRadius: widget.barBorderRadius,
-            boxShadow: widget.barShadow ??
-                [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(0, -1),
-                    blurRadius: 8,
-                  ),
-                ],
-          ),
-          child: setUpTabs(
-            drawerStyle,
-            widget.tabs,
-            widget.onTabChangedListener,
-            actions,
-          ),
-        ),
-      ],
+            ],
+      ),
+      child: setUpTabs(
+        drawerStyle,
+        widget.tabs,
+        widget.onTabChangedListener,
+        actions,
+      ),
     );
   }
 
@@ -275,12 +268,12 @@ class CubertoBottomBarState extends State<CubertoBottomBar>
   }
 
   _initAnimationAndStart(double from, double to) {
-    Future.delayed(Duration(milliseconds: ANIM_DURATION ~/ 5), () {
+    Future.delayed(Duration(milliseconds: kAnimationDuration ~/ 5), () {
       setState(() {
         activeIcon = nextIcon;
       });
     }).then((_) {
-      Future.delayed(Duration(milliseconds: (ANIM_DURATION ~/ 5 * 3)), () {
+      Future.delayed(Duration(milliseconds: (kAnimationDuration ~/ 5 * 3)), () {
         setState(() {});
       });
     });
