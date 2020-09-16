@@ -3,101 +3,71 @@ import 'package:flutter/material.dart';
 import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
 
 void main() {
-  Widget makeTestableWidget({@required Widget child}) {
+  Widget makeTestableWidget({Widget child}) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.pink, brightness: Brightness.light),
-      home: Scaffold(
-        body: Placeholder(),
-        bottomNavigationBar: child,
-      ),
-    );
+        theme: ThemeData(primaryColor: Colors.pink,
+            brightness: Brightness.light),
+        home: Scaffold(
+            body: Center(),
+            bottomNavigationBar: child));
   }
 
-  testWidgets('Correct styling for tabs', (WidgetTester tester) async {
+  testWidgets('Fancy Nav has correct tabs', (WidgetTester tester) async {
     CubertoBottomBar fn = CubertoBottomBar(
-      tabs: <TabData>[
-        TabData(iconData: Icons.home, title: 'Home'),
-        TabData(iconData: Icons.search, title: 'Search'),
+      tabs: [
+        TabData(iconData: Icons.home, title: "Home"),
+        TabData(iconData: Icons.search, title: "Search")
       ],
-      onTabChangedListener: (_, __, ___) {},
-      tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
+      onTabChangedListener: (position, title, color) {},
     );
 
     await tester.pumpWidget(makeTestableWidget(child: fn));
 
-    final homeFinder = find.text('Home');
-    final homeIconFinder = find.byIcon(Icons.home);
-    final searchFinder = find.text('Search');
-    final searchIconFinder = find.byIcon(Icons.search);
-
+    final homeFinder = find.text("Home");
     expect(homeFinder, findsOneWidget);
-    expect(homeIconFinder, findsOneWidget);
-    expect(searchFinder, findsNothing);
+
+    final homeIconFinder = find.byIcon(Icons.home);
+    expect(homeIconFinder, findsNWidgets(2));
+
+    final searchIconFinder = find.byIcon(Icons.search);
     expect(searchIconFinder, findsOneWidget);
+
+    final searchFinder = find.text("Search");
+    expect(searchFinder, findsOneWidget);
+
+    final randomFinder = find.text("Hello");
+    expect(randomFinder, findsNothing);
+
   });
 
-  testWidgets('Clicking icon moves selected icon', (WidgetTester tester) async {
-    await tester.pumpWidget(_TestApp());
+  testWidgets('Clicking icon moves the circle', (WidgetTester tester) async {
+    CubertoBottomBar fn = CubertoBottomBar(
+      tabs: [
+        TabData(iconData: Icons.home, title: "Home"),
+        TabData(iconData: Icons.search, title: "Search")
+      ],
+      onTabChangedListener: (position, title, color) {},
+    );
 
-    final homeFinder = find.text('Home');
+    await tester.pumpWidget(makeTestableWidget(child: fn));
+
+    final homeFinder = find.text("Home");
     final homeIconFinder = find.byIcon(Icons.home);
-    final searchFinder = find.text('Search');
     final searchIconFinder = find.byIcon(Icons.search);
+    final searchFinder = find.text("Search");
+    final randomFinder = find.text("Hello");
 
     expect(homeFinder, findsOneWidget);
-    expect(homeIconFinder, findsOneWidget);
-    expect(searchFinder, findsNothing);
+    expect(homeIconFinder, findsNWidgets(2));
     expect(searchIconFinder, findsOneWidget);
+    expect(searchFinder, findsOneWidget);
+    expect(randomFinder, findsNothing);
 
     await tester.tap(searchIconFinder);
-    await tester.pump(const Duration(milliseconds: kAnimationDuration));
+    await tester.pumpAndSettle();
 
-    expect(homeFinder, findsNothing);
+    expect(searchIconFinder, findsNWidgets(2));
     expect(homeIconFinder, findsOneWidget);
-    expect(searchFinder, findsOneWidget);
-    expect(searchIconFinder, findsOneWidget);
 
-    await tester.tap(homeIconFinder);
-    await tester.pump(const Duration(milliseconds: kAnimationDuration));
-
-    expect(homeFinder, findsOneWidget);
-    expect(homeIconFinder, findsOneWidget);
-    expect(searchFinder, findsNothing);
-    expect(searchIconFinder, findsOneWidget);
   });
-}
-
-class _TestApp extends StatefulWidget {
-  @override
-  __TestAppState createState() => __TestAppState();
-}
-
-class __TestAppState extends State<_TestApp> {
-  int _selected;
-  @override
-  void initState() {
-    super.initState();
-    _selected = 0;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Placeholder(),
-        bottomNavigationBar: CubertoBottomBar(
-          onTabChangedListener: (int position, _, __) {
-            setState(() {
-              _selected = position;
-            });
-          },
-          selectedTab: _selected,
-          tabs: <TabData>[
-            TabData(iconData: Icons.home, title: 'Home'),
-            TabData(iconData: Icons.search, title: 'Search')
-          ],
-        ),
-      ),
-    );
-  }
 }
