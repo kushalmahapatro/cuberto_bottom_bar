@@ -1,3 +1,7 @@
+## [1.2.0]
+
+- Removed `overflow` to be compatible with FLutter 1.22
+
 ## [1.1.2+3]
 
 - Key added to TabItem

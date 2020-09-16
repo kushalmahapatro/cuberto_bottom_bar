@@ -104,13 +104,13 @@ class _TabItemState extends State<TabItem> {
     return InkWell(
       child: AnimatedContainer(
         padding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
-        duration: Duration(milliseconds: ANIM_DURATION),
+        duration: Duration(milliseconds: kAnimationDuration),
         decoration: BoxDecoration(
             gradient: backGradient,
             borderRadius:
                 widget.borderRadius ?? BorderRadius.all(Radius.circular(20.0))),
         child: AnimatedContainer(
-          duration: Duration(milliseconds: ANIM_DURATION),
+          duration: Duration(milliseconds: kAnimationDuration),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -120,7 +120,7 @@ class _TabItemState extends State<TabItem> {
               ),
               SizedBox(width: 8.0),
               AnimatedContainer(
-                duration: Duration(milliseconds: ANIM_DURATION),
+                duration: Duration(milliseconds: kAnimationDuration),
                 padding: widget.selected
                     ? EdgeInsets.only(left: 3.0, right: 3.0)
                     : EdgeInsets.all(0.0),
