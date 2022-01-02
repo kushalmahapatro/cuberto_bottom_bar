@@ -1,3 +1,7 @@
+## [2.0.0]
+
+- Added support for Flutter2
+
 ## [1.2.0]
 
 - Removed `overflow` to be compatible with FLutter 1.22
