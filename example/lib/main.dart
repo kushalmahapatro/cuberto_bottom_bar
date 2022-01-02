@@ -1,5 +1,4 @@
 import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -23,8 +22,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  MyHomePage({Key? key, this.title: ''}) : super(key: key);
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -32,11 +31,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  int currentPage;
+  int currentPage = 0;
   Color currentColor = Colors.deepPurple;
   Color inactiveColor = Colors.black;
-  PageController tabBarController;
-  List<Tabs> tabs = new List();
+  late PageController tabBarController;
+  List<Tabs> tabs = <Tabs>[];
 
   @override
   void initState() {
@@ -59,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
-    Widget tabView({int destinationIndex}) {
+    Widget tabView({int destinationIndex: 0}) {
       return Container(
           decoration: BoxDecoration(color: tabs[currentPage].color),
           child: InkWell(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
 
 void main() {
-  Widget makeTestableWidget({@required Widget child}) {
+  Widget makeTestableWidget({required Widget child}) {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.pink, brightness: Brightness.light),
       home: Scaffold(
@@ -73,7 +73,7 @@ class _TestApp extends StatefulWidget {
 }
 
 class __TestAppState extends State<_TestApp> {
-  int _selected;
+  late int _selected;
   @override
   void initState() {
     super.initState();
