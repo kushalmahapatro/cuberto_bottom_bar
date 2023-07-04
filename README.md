@@ -14,7 +14,6 @@
 
 ```yaml
 dependencies:
-  ...
   cuberto_bottom_bar: ^1.1.2+3
 ```
 
@@ -22,10 +21,10 @@ dependencies:
 
 For now this is limited to more than 1 tab, and less than 5. So 2-4 tabs.
 textColor will only be applied in the case of STYLE_NORMAL.
-In case of STYLE_FADED_BACKGROUND the tabColor will be set as textColor,(if tabColor is not set inactiveColor will be set)
+In case of styleFadedBackground the tabColor will be set as textColor,(if tabColor is not set inactiveColor will be set)
 
 manually drawer or endDrawer has to be added and then respective drawer has to be added in CubertoBottomBar (
-CubertoDrawer.NO_DRAWER for no drawer, CubertoDrawer.START_DRAWER for drawer and CubertoDrawer.END_DRAWER for endDrawer)
+CubertoDrawer.noDrawer for no drawer, CubertoDrawer.startDrawer for drawer and CubertoDrawer.endDrawer for endDrawer)
 
 By default the drawer overlaps the CubertoBottomBar, for that margin: EdgeInsets.only(bottom: 60.0) has been added. (Please check with the example)
 
@@ -39,9 +38,9 @@ Adding the widget
 bottomNavigationBar: CubertoBottomBar(
         key: Key("BottomBar"),
         inactiveIconColor: inactiveColor,
-        tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND, // By default its CubertoTabStyle.STYLE_NORMAL
-        selectedTab: currentPage, // By default its 0, Current page which is fetched when a tab is clickd, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
-        drawer: CubertoDrawer.NO_DRAWER, // By default its NO_DRAWER (Availble START_DRAWER and END_DRAWER as per where you want to how the drawer icon in Cuberto Bottom bar)
+        tabStyle: CubertoTabStyle.styleFadedBackground, // By default its CubertoTabStyle.styleFadedBackground
+        selectedTab: currentPage, // By default its 0, Current page which is fetched when a tab is clicked, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
+        drawer: CubertoDrawer.noDrawer, // By default its [CubertoDrawer.noDrawer] (Available startDrawer and endDrawer as per where you want to how the drawer icon in Cuberto Bottom bar)
         tabs: tabs
             .map((value) => TabData(
                 key: Key(value.title), 
@@ -86,8 +85,8 @@ tabs.add(Tabs(Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal))
 **key** -> Pass a Key to set it to TabItem or else by default UniqueKey() will be set
 **iconData** -> Icon to be used for the tab
 **title** -> String to be used for the tab
-**tabColor:** -> Colors to be used for background and label when `STYLE_FADED_BACKGROUND` is chosen
-**tabGradient:** -> Set a gradient to the selected tab which works only with `STYLE_FADED_BACKGROUND` .
+**tabColor:** -> Colors to be used for background and label when `styleFadedBackground` is chosen
+**tabGradient:** -> Set a gradient to the selected tab which works only with `styleFadedBackground` .
 **onClick** -> Optional function to be used when the circle itself is clicked, on an active tab
 
 ## Attributes
@@ -95,18 +94,18 @@ tabs.add(Tabs(Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal))
 ### Required
 
 - **tabs** -> List of `TabData` objects
-- **onTabChangedListener** -> Function to handle a tap on a tab, receives `int position`, `String title` and `Color tabColor` (if not set will return `inactiveIconColor` in both `STYLE_NORMAL` and `STYLE_FADED_BACKGROUND`)
+- **onTabChangedListener** -> Function to handle a tap on a tab, receives `int position`, `String title` and `Color tabColor` (if not set will return `inactiveIconColor` in both `STYLE_NORMAL` and `styleFadedBackground`)
 
 ### Optional
 
 - **key** -> Unique Key to set an identity to the widget
-- **selectedTab** -> Defaults to `0` (initialSelection has been changed to selectedTab) Current page which is fetched when a tab is clickd, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
+- **selectedTab** -> Defaults to `0` (initialSelection has been changed to selectedTab) Current page which is fetched when a tab is clicked, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
 - **inactiveIconColor** -> Defaults to `null`, derives from `Theme`
 - **textColor** -> Defaults to `Colors.white`
 - **barBackgroundColor** -> Defaults to `null`, derives from `Theme`
 - **barBorderRadius** -> Default to null (`Scaffold`'s background color must be different than `barBackgroundColor`)
-- **tabStyle** -> Defaults to `CubertoTabStyle.STYLE_NORMAL`
-- **drawer** -> Defaults to `CubertoDrawer.NO_DRAWER` (can be set as `CubertoDrawer.START_DRAWER` or `CubertoDrawer.END_DRAWER` as per the need for the placement of drawer icon)
+- **tabStyle** -> Defaults to `CubertoTabStyle.styleNormal`
+- **drawer** -> Defaults to `CubertoDrawer.noDrawer` (can be set as `CubertoDrawer.startDrawer` or `CubertoDrawer.endDrawer` as per the need for the placement of drawer icon)
 - **key** -> Defaults to `null`
 - **padding** -> Defaults to `EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0)`. Modifies the inner padding of the bar.
 - **barShadow** -> By default, adds a shadow to the bar. Can be disabled with an empty list, or modified with the desired `BoxShadow`.
@@ -115,13 +114,13 @@ tabs.add(Tabs(Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal))
 
 The bar will attempt to use your current theme out of the box, however you may want to theme it. Here are the attributes:
 
-## CubertoBottom BarTheming - STYLE_FADED_BACKGROUND
+## CubertoBottom BarTheming - styleFadedBackground
 
-![Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image1.png "Cuberto Bottom Bar Theming - STYLE_FADED_BACKGROUND")
+![Cuberto Bottom Bar Theming - styleFadedBackground](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image1.png "Cuberto Bottom Bar Theming - styleFadedBackground")
 
-## Cuberto Bottom Bar Theming - STYLE_NORMAL
+## Cuberto Bottom Bar Theming - styleNormal
 
-![Cuberto Bottom Bar Theming - STYLE_NORMAL](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image2.png "Cuberto Bottom Bar Theming - STYLE_NORMAL")
+![Cuberto Bottom Bar Theming - styleNormal](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image2.png "Cuberto Bottom Bar Theming - styleNormal")
 
 ## Showcase
 
