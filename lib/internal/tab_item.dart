@@ -1,12 +1,13 @@
 import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
+import 'package:cuberto_bottom_bar/internal/tab_data.dart';
 import 'package:flutter/material.dart';
 
-const double ICON_OFF = -3;
-const double ICON_ON = 0;
-const double TEXT_OFF = 3;
-const double TEXT_ON = 1;
-const double ALPHA_OFF = 0;
-const double ALPHA_ON = 1;
+const double iconOff = -3;
+const double iconOn = 0;
+const double textOff = 3;
+const double textOn = 1;
+const double alphaOff = 0;
+const double alphaOn = 1;
 
 class TabItem extends StatefulWidget {
   /// This title is used in the Tab as text
@@ -37,13 +38,13 @@ class TabItem extends StatefulWidget {
   final BorderRadius? borderRadius;
 
   /// This value is used to YAlignment of the icon of the Tab
-  final double iconYAlign = ICON_ON;
+  final double iconYAlign = iconOn;
 
   /// This value is used to YAlignment of the text of the Tab
-  final double textYAlign = TEXT_OFF;
+  final double textYAlign = textOff;
 
   /// This value is used as the alpha of the icon of the Tab
-  final double iconAlpha = ALPHA_ON;
+  final double iconAlpha = alphaOn;
 
   /// This value is used as a GlobalKey of the Tab
   final GlobalKey stickyKey = GlobalKey();
@@ -51,19 +52,19 @@ class TabItem extends StatefulWidget {
   /// This style is used to set the tabStyle
   final CubertoTabStyle? tabStyle;
 
-  TabItem(
-      {required this.selected,
-      required this.iconData,
-      required this.title,
-      required this.callbackFunction,
-      required this.textColor,
-      required this.iconColor,
-      required this.tabColor,
-      this.borderRadius,
-      this.backGroundGradientColor,
-      this.tabStyle = CubertoTabStyle.styleNormal,
-      Key? key})
-      : super(key: key);
+  TabItem({
+    required this.selected,
+    required this.iconData,
+    required this.title,
+    required this.callbackFunction,
+    required this.textColor,
+    required this.iconColor,
+    required this.tabColor,
+    this.borderRadius,
+    this.backGroundGradientColor,
+    this.tabStyle = CubertoTabStyle.styleNormal,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<TabItem> createState() => _TabItemState();
@@ -73,16 +74,20 @@ class _TabItemState extends State<TabItem> {
   @override
   Widget build(BuildContext context) {
     Gradient backGradient = const LinearGradient(
-        colors: [Colors.transparent, Colors.transparent], stops: [0.0, 0.7]);
+      colors: [Colors.transparent, Colors.transparent],
+      stops: [0.0, 0.7],
+    );
     Color iconColor = widget.iconColor;
     if (widget.tabStyle == CubertoTabStyle.styleNormal) {
       backGradient = widget.selected
           ? LinearGradient(
               colors: [widget.iconColor, widget.iconColor],
-              stops: const [0.0, 0.7])
+              stops: const [0.0, 0.7],
+            )
           : const LinearGradient(
               colors: [Colors.transparent, Colors.transparent],
-              stops: [0.0, 0.7]);
+              stops: [0.0, 0.7],
+            );
       iconColor = widget.selected ? widget.textColor : widget.iconColor;
     } else {
       backGradient = widget.selected
@@ -91,16 +96,17 @@ class _TabItemState extends State<TabItem> {
                   const LinearGradient(
                       colors: [Colors.transparent, Colors.transparent],
                       stops: [0.0, 0.7])
-              : LinearGradient(colors: [
-                  widget.tabColor.withOpacity(0.1),
-                  widget.tabColor.withOpacity(0.1)
-                ], stops: const [
-                  0.0,
-                  0.7
-                ])
+              : LinearGradient(
+                  colors: [
+                    widget.tabColor.withOpacity(0.1),
+                    widget.tabColor.withOpacity(0.1)
+                  ],
+                  stops: const [0.0, 0.7],
+                )
           : const LinearGradient(
               colors: [Colors.transparent, Colors.transparent],
-              stops: [0.0, 0.7]);
+              stops: [0.0, 0.7],
+            );
       iconColor = widget.selected ? widget.tabColor : widget.iconColor;
     }
 
@@ -109,9 +115,12 @@ class _TabItemState extends State<TabItem> {
         padding: const EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
         duration: const Duration(milliseconds: kAnimationDuration),
         decoration: BoxDecoration(
-            gradient: backGradient,
-            borderRadius: widget.borderRadius ??
-                const BorderRadius.all(Radius.circular(20.0))),
+          gradient: backGradient,
+          borderRadius: widget.borderRadius ??
+              const BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+        ),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: kAnimationDuration),
           child: Row(
