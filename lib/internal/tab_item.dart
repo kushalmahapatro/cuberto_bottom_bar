@@ -63,8 +63,8 @@ class TabItem extends StatefulWidget {
     this.borderRadius,
     this.backGroundGradientColor,
     this.tabStyle = CubertoTabStyle.styleNormal,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TabItem> createState() => _TabItemState();

@@ -48,7 +48,7 @@ class CubertoBottomBar extends StatefulWidget {
   final List<BoxShadow>? barShadow;
 
   const CubertoBottomBar({
-    Key? key,
+    super.key,
     required this.tabs,
     required this.onTabChangedListener,
     this.selectedTab = 0,
@@ -61,8 +61,7 @@ class CubertoBottomBar extends StatefulWidget {
     this.tabStyle,
     this.padding,
     this.barShadow,
-  })  : assert(tabs.length > 1 && tabs.length < 5),
-        super(key: key);
+  })  : assert(tabs.length > 1 && tabs.length < 5);
 
   @override
   CubertoBottomBarState createState() => CubertoBottomBarState();
