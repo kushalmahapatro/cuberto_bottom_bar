@@ -14,7 +14,7 @@
 
 ```yaml
 dependencies:
-  cuberto_bottom_bar: ^1.1.2+3
+  cuberto_bottom_bar: latest
 ```
 
 ## Limitations
@@ -36,65 +36,48 @@ Adding the widget
 
 ```dart
 bottomNavigationBar: CubertoBottomBar(
-        key: Key("BottomBar"),
-        inactiveIconColor: inactiveColor,
-        tabStyle: CubertoTabStyle.styleFadedBackground, // By default its CubertoTabStyle.styleFadedBackground
-        selectedTab: currentPage, // By default its 0, Current page which is fetched when a tab is clicked, should be set here so as the change the tabs, and the same can be done if willing to programmatically change the tab.
-        drawer: CubertoDrawer.noDrawer, // By default its [CubertoDrawer.noDrawer] (Available startDrawer and endDrawer as per where you want to how the drawer icon in Cuberto Bottom bar)
+        key: const Key("BottomBar"),
+        inactiveIconColor: _inactiveColor,
+        tabStyle: CubertoTabStyle.styleNormal,
+        selectedTab: _currentPage,
         tabs: tabs
-            .map((value) => TabData(
-                key: Key(value.title), 
-                iconData: value.icon,
+            .map(
+              (value) => TabData(
+                key: Key(value.title),
+                iconData: value.iconData,
                 title: value.title,
-                tabColor: value.color,
-                tabGradient: value.gradient))
+                tabColor: value.tabColor,
+                tabGradient: value.tabGradient,
+              ),
+            )
             .toList(),
         onTabChangedListener: (position, title, color) {
           setState(() {
-            currentPage = position;
-            currentTitle = title;
-            currentColor = color;
+            _currentPage = position;
+            _currentTitle = title;
+            if (color != null) {
+              _currentColor = color;
+            }
           });
         },
-      ),
-
-class Tabs {
-  final IconData icon;
-  final String title;
-  final Color color;
-  final Gradient gradient;
-
-  Tabs(this.icon, this.title, this.color, this.gradient);
-}
-
-getGradient(Color color) {
-  return LinearGradient(
-      colors: [color.withOpacity(0.5), color.withOpacity(0.1)],
-      stops: [0.0, 0.7]);
-}
-
-List<Tabs> tabs = new List();
-tabs.add(Tabs(Icons.home,"Home",Colors.deepPurple,getGradient(Colors.deepPurple),));
-tabs.add(Tabs(Icons.search, "Search", Colors.pink, getGradient(Colors.pink)));
-tabs.add(Tabs(Icons.alarm, "Alarm", Colors.amber, getGradient(Colors.amber)));
-tabs.add(Tabs(Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal)));
+      )
 
 ```
 
 ## TabData
-**key** -> Pass a Key to set it to TabItem or else by default UniqueKey() will be set
-**iconData** -> Icon to be used for the tab
-**title** -> String to be used for the tab
-**tabColor:** -> Colors to be used for background and label when `styleFadedBackground` is chosen
-**tabGradient:** -> Set a gradient to the selected tab which works only with `styleFadedBackground` .
-**onClick** -> Optional function to be used when the circle itself is clicked, on an active tab
+**key** -> Pass a Key to set it to TabItem or else by default UniqueKey() will be set </br>
+**iconData** -> Icon to be used for the tab </br>
+**title** -> String to be used for the tab </br>
+**tabColor:** -> Colors to be used for background and label when `styleFadedBackground` is chosen </br>
+**tabGradient:** -> Set a gradient to the selected tab which works only with `styleFadedBackground`. </br>
+**onClick** -> Optional function to be used when the circle itself is clicked, on an active tab </br>
 
 ## Attributes
 
 ### Required
 
 - **tabs** -> List of `TabData` objects
-- **onTabChangedListener** -> Function to handle a tap on a tab, receives `int position`, `String title` and `Color tabColor` (if not set will return `inactiveIconColor` in both `STYLE_NORMAL` and `styleFadedBackground`)
+- **onTabChangedListener** -> Function to handle a tap on a tab, receives `int position`, `String title` and `Color tabColor` (if not set will return `inactiveIconColor` in both `styleNormal` and `styleFadedBackground`)
 
 ### Optional
 
@@ -105,7 +88,7 @@ tabs.add(Tabs(Icons.settings, "Settings", Colors.teal, getGradient(Colors.teal))
 - **barBackgroundColor** -> Defaults to `null`, derives from `Theme`
 - **barBorderRadius** -> Default to null (`Scaffold`'s background color must be different than `barBackgroundColor`)
 - **tabStyle** -> Defaults to `CubertoTabStyle.styleNormal`
-- **drawer** -> Defaults to `CubertoDrawer.noDrawer` (can be set as `CubertoDrawer.startDrawer` or `CubertoDrawer.endDrawer` as per the need for the placement of drawer icon)
+- **drawer** -> Defaults to `CubertoDrawerStyle.noDrawer` (can be set as `CubertoDrawerStyle.startDrawer` or `CubertoDrawerStyle.endDrawer` as per the need for the placement of drawer icon)
 - **key** -> Defaults to `null`
 - **padding** -> Defaults to `EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0)`. Modifies the inner padding of the bar.
 - **barShadow** -> By default, adds a shadow to the bar. Can be disabled with an empty list, or modified with the desired `BoxShadow`.
@@ -116,11 +99,11 @@ The bar will attempt to use your current theme out of the box, however you may w
 
 ## CubertoBottom BarTheming - styleFadedBackground
 
-![Cuberto Bottom Bar Theming - styleFadedBackground](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image1.png "Cuberto Bottom Bar Theming - styleFadedBackground")
+![Cuberto Bottom Bar Theming - styleFadedBackground](image1.png "Cuberto Bottom Bar Theming - styleFadedBackground")
 
 ## Cuberto Bottom Bar Theming - styleNormal
 
-![Cuberto Bottom Bar Theming - styleNormal](https://github.com/kushalmahapatro/cuberto_bottom_bar/blob/master/image2.png "Cuberto Bottom Bar Theming - styleNormal")
+![Cuberto Bottom Bar Theming - styleNormal](image2.png "Cuberto Bottom Bar Theming - styleNormal")
 
 ## Showcase
 
