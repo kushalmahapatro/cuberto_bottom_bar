@@ -1,3 +1,9 @@
+## [3.0.0]
+
+- Added support for Flutter3
+- **Breaking changes**: `CubertoDrawerStyle` values has been changed 
+- **Breaking changes**: `CubertoTabStyle` values has been changed
+
 ## [2.0.0]
 
 - Added support for Flutter2
