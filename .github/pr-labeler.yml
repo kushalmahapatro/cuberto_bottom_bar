@@ -1,0 +1,7 @@
+bug: hotfix/*
+documentation: docs/*
+feature: ['feature/*', 'feat/*']
+fix: fix/*
+chore: chore/*
+path: path/*
+build: build/*

@@ -7,8 +7,8 @@ class TabData {
   /// This string will be used as the text inside the Tab
   String title;
 
-  /// This onclick function to be called when clicked on Tab
-  Function? onclick;
+  /// This onClick function to be called when clicked on Tab
+  Function? onClick;
 
   /// This color is set as the background color of the Tab
   Color? tabColor;
@@ -25,7 +25,7 @@ class TabData {
   TabData({
     required this.iconData,
     required this.title,
-    this.onclick,
+    this.onClick,
     this.tabColor,
     this.borderRadius,
     this.tabGradient,

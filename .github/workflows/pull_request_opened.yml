@@ -1,0 +1,59 @@
+name: Pull Request (Opened)
+
+on:
+  pull_request:
+    types: [ opened, edited, reopened ]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  discussions: write
+
+jobs:
+
+  assign_author:
+    name: Assign Author to the Pull Request
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign Author to the Pull Request
+        uses: technote-space/assign-author@6252488282b99652aef47451a353eb88aea24666
+
+  pr-labeler:
+    name: Label the PR based on the branch
+    #    needs: security_hardening
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label the Pull Request
+        uses: TimonVS/pr-labeler-action@bd0b592a410983316a454e3d48444608f028ec8e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  check-branch:
+    runs-on: ubuntu-latest
+    name: Check branch
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter --version
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze project source
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Run dart publish (dry run)
+        if: ${{ github.event.pull_request.base.ref == 'master' }}
+        run: flutter pub publish --dry-run
