@@ -21,16 +21,16 @@ jobs:
       - run: flutter --version
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: Analyze project source
-        run: dart analyze
+        run: flutter analyze
 
       - name: Run tests
-        run: dart test
+        run: flutter test
 
       - name: Run dart publish (dry run)
-        run: dart pub publish --dry-run
+        run: flutter pub publish --dry-run
 
       - name: Publish
         uses: k-paxian/dart-package-publisher@v1.5.1
