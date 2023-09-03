@@ -110,12 +110,20 @@ The bar will attempt to use your current theme out of the box, however you may w
 If using this package in a live app, let me know and I'll add you app here.
 
 ## Inspiration
-
-This package has been inspired by a design on dribbble by Sourabh Gupta and the faded background style from Aurelien Salomon:
-https://github.com/sourabhgupta811/CubertoBottomBar
 https://dribbble.com/shots/5925052-Google-Bottom-Bar-Navigation-Pattern
 https://www.instagram.com/p/BtyUbSkBlnF/
 
-## Contributing
+## Contributors
+<a href="https://github.com/kushalmahapatro/cuberto_bottom_bar/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kushalmahapatro/cuberto_bottom_bar" />
+</a>
 
-Contributions are welcome, please submit a PR :)
+Made with [contrib.rocks](https://contrib.rocks).
+
+## Support
+Feel free to contribute to this project by creating a pull request with a clear description of your changes.
+
+If this plugin was useful to you, helped you in any way, saved you a lot of time, or you just want to support the project, I would be very grateful if you buy me a cup of coffee. Your support helps maintain and improve this project.
+
+
+<a href="https://www.buymeacoffee.com/kushalm" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>

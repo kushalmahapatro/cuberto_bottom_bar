@@ -1,5 +1,4 @@
 import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
-import 'package:cuberto_bottom_bar/internal/tab_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
