@@ -47,6 +47,13 @@ class CubertoBottomBar extends StatefulWidget {
   /// The list of shadows of the [CubertoBottomBar]
   final List<BoxShadow>? barShadow;
 
+  /// Generates documentation for the [CubertoBottomBar] widget.
+  ///
+  /// The [CubertoBottomBar] widget is a customizable bottom navigation bar that allows users to switch between different tabs.
+  /// It provides options to set tab colors, text colors, background color, and more.
+  /// Users can also define a callback function to be executed when a tab is changed.
+  /// The widget supports adding a navigation drawer for additional functionality.
+  /// The [CubertoBottomBar] widget is highly customizable and provides a smooth user experience.
   const CubertoBottomBar({
     super.key,
     required this.tabs,
@@ -61,25 +68,51 @@ class CubertoBottomBar extends StatefulWidget {
     this.tabStyle,
     this.padding,
     this.barShadow,
-  })  : assert(tabs.length > 1 && tabs.length < 5);
+  }) : assert(tabs.length > 1 && tabs.length < 5);
 
   @override
   CubertoBottomBarState createState() => CubertoBottomBarState();
 }
 
+/// State class for the CubertoBottomBar widget.
 class CubertoBottomBarState extends State<CubertoBottomBar> {
+  /// Icon to be displayed as the next icon.
   IconData nextIcon = Icons.search;
+
+  /// Icon currently active in the bottom bar.
   IconData activeIcon = Icons.search;
+
+  /// Index of the currently selected tab.
   int currentSelected = 0;
+
+  /// X-axis alignment for the circle indicator.
   double _circleAlignX = 0;
+
+  /// Color of the circle indicator.
   Color? circleColor;
+
+  /// Color of the active icon.
   Color? activeIconColor;
+
+  /// Color of the inactive icon.
   Color? inactiveIconColor;
+
+  /// Background color of the bottom bar.
   Color? barBackgroundColor;
+
+  /// Text color in the bottom bar.
   Color? textColor;
+
+  /// Color of the tab.
   Color? tabColor;
+
+  /// Style of the drawer.
   CubertoDrawerStyle? drawerStyle;
+
+  /// Style of the tab.
   CubertoTabStyle? tabStyle;
+
+  /// Icon for the drawer.
   Icon? drawerIcon;
 
   @override
@@ -132,12 +165,17 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
     } else {
       tabStyle = widget.tabStyle;
     }
-    _setSelected(widget.tabs[widget.selectedTab].key);
+    _setSelected(widget.tabs[widget.selectedTab]);
   }
 
-  void _setSelected(Key? key) {
-    int selected = widget.tabs
-        .indexWhere((tabData) => tabData.key.toString() == key.toString());
+  /// Sets the selected tab based on the provided [TabData].
+  /// Updates the state to reflect the new selection and calculates the alignment of the circle indicator.
+  /// Also updates the next icon to be displayed.
+  ///
+  /// Parameters:
+  /// - tabData: The TabData object representing the tab to be selected.
+  void _setSelected(TabData tabData) {
+    int selected = widget.tabs.indexWhere((tab) => tab == tabData);
     if (mounted) {
       setState(() {
         currentSelected = selected;
@@ -150,7 +188,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
   @override
   Widget build(BuildContext context) {
     // method to make a particular tab selected
-    _setSelected(widget.tabs[widget.selectedTab].key);
+    _setSelected(widget.tabs[widget.selectedTab]);
     void handleDrawerButton() {
       Scaffold.of(context).openDrawer();
     }
@@ -160,7 +198,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
       Scaffold.of(context).openEndDrawer();
     }
 
-    Widget actions;
+    final Widget actions;
     // set action as drawerStyle
     if (drawerStyle != CubertoDrawerStyle.noDrawer) {
       actions = IconButton(
@@ -176,6 +214,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
     else {
       actions = const SizedBox.shrink();
     }
+
     return Container(
       padding: widget.padding ??
           const EdgeInsets.symmetric(
@@ -195,10 +234,10 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
             ],
       ),
       child: setUpTabs(
-        drawerStyle ?? CubertoDrawerStyle.noDrawer,
-        widget.tabs,
-        widget.onTabChangedListener,
-        actions,
+        drawerStyle: drawerStyle ?? CubertoDrawerStyle.noDrawer,
+        tabs: widget.tabs,
+        onTabChangedListener: widget.onTabChangedListener,
+        actions: actions,
       ),
     );
   }
@@ -215,23 +254,22 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
         children: tabs
             .map(
               (t) => TabItem(
-                key: t.key,
+                tabData: t,
                 tabStyle: tabStyle,
-                selected: t.key == tabs[currentSelected].key,
-                iconData: t.iconData,
-                title: t.title,
+                selected: t == tabs[currentSelected],
                 iconColor: inactiveIconColor ?? Colors.black,
                 textColor: textColor ?? Colors.black,
                 backGroundGradientColor: t.tabGradient,
-                tabColor: t.tabColor ?? inactiveIconColor ?? Colors.black,
-                borderRadius: t.borderRadius,
-                callbackFunction: (uniqueKey) {
-                  int selected = tabs.indexWhere((tabData) =>
-                      tabData.key.toString() == uniqueKey.toString());
-                  _setSelected(uniqueKey);
+                inactiveColor: inactiveIconColor ?? Colors.black,
+                callbackFunction: (TabData tabData) {
+                  int selected = tabs.indexWhere((tab) => tabData == tab);
+                  _setSelected(tabData);
                   _initAnimationAndStart(_circleAlignX, 1);
                   onTabChangedListener(
-                      selected, t.title, inactiveIconColor ?? Colors.black);
+                    selected,
+                    t.title,
+                    inactiveIconColor ?? Colors.black,
+                  );
                 },
               ),
             )
@@ -240,15 +278,26 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
     );
   }
 
-  Widget setUpTabs(
-    CubertoDrawerStyle drawerStyle,
-    List<TabData> tabs,
-    Function(int position, String title, Color? tabColor) onTabChangedListener,
-    Widget actions,
-  ) {
+  /// Sets up the tabs based on the provided parameters.
+  ///
+  /// Parameters:
+  /// - drawerStyle: The style of the drawer to be displayed.
+  /// - tabs: List of TabData representing the tabs to be displayed.
+  /// - onTabChangedListener: Callback function to be executed when a tab is changed.
+  /// - actions: Widget representing additional actions to be displayed.
+  ///
+  /// Returns a Widget that displays the tabs based on the specified parameters.
+  Widget setUpTabs({
+    required CubertoDrawerStyle drawerStyle,
+    required List<TabData> tabs,
+    required Function(int position, String title, Color? tabColor)
+        onTabChangedListener,
+    required Widget actions,
+  }) {
     Widget widget;
     if (drawerStyle == CubertoDrawerStyle.endDrawer) {
       widget = Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
             child: rowTabs(tabs, onTabChangedListener),
@@ -258,6 +307,7 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
       );
     } else if (drawerStyle == CubertoDrawerStyle.startDrawer) {
       widget = Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           actions,
           Expanded(
@@ -268,19 +318,18 @@ class CubertoBottomBarState extends State<CubertoBottomBar> {
     } else {
       widget = rowTabs(tabs, onTabChangedListener);
     }
-    return widget;
+    return SafeArea(child: widget);
   }
 
   void _initAnimationAndStart(double from, double to) {
-    Future.delayed(const Duration(milliseconds: kAnimationDuration ~/ 5), () {
-      setState(() {
-        activeIcon = nextIcon;
-      });
-    }).then((_) {
-      Future.delayed(
-          const Duration(milliseconds: (kAnimationDuration ~/ 5 * 3)), () {
-        setState(() {});
-      });
-    });
+    Future.delayed(
+      const Duration(milliseconds: kAnimationDuration ~/ 5),
+      () => setState(() => activeIcon = nextIcon),
+    ).then(
+      (_) => Future.delayed(
+        const Duration(milliseconds: (kAnimationDuration ~/ 5 * 3)),
+        () => setState(() {}),
+      ),
+    );
   }
 }
