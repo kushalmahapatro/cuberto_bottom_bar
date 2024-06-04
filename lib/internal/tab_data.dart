@@ -1,28 +1,38 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class TabData {
-  /// This iconData will be used in the Tab
-  IconData iconData;
+/// Represents data for a tab in a tab bar.
+class TabData extends Equatable {
+  /// Icon data to be displayed in the tab.
+  final IconData iconData;
 
-  /// This string will be used as the text inside the Tab
-  String title;
+  /// Text to be displayed inside the tab.
+  final String title;
 
-  /// This onClick function to be called when clicked on Tab
-  Function? onClick;
+  /// Function to be called when the tab is clicked.
+  final Function? onClick;
 
-  /// This color is set as the background color of the Tab
-  Color? tabColor;
+  /// Background color of the tab.
+  final Color? tabColor;
 
-  /// This gradient color is used a the background gradient of the Tab
-  Gradient? tabGradient;
+  /// Background gradient of the tab.
+  final Gradient? tabGradient;
 
-  /// This borderRadius is used as the the borderRadius of the Tab
-  BorderRadius? borderRadius;
+  /// Border radius of the tab.
+  final BorderRadius? borderRadius;
 
-  /// This key is used as unique value to the Tab (if not set default UniqueKey will be added to the Tab)
-  Key? key;
+  /// Unique key for the tab.
+  final Key? key;
 
-  TabData({
+  /// Constructs a TabData instance with the following parameters:
+  /// - iconData: Icon data to be displayed in the tab.
+  /// - title: Text to be displayed inside the tab.
+  /// - onClick: Function to be called when the tab is clicked.
+  /// - tabColor: Background color of the tab.
+  /// - borderRadius: Border radius of the tab.
+  /// - tabGradient: Background gradient of the tab.
+  /// - key: Unique key for the tab.
+  const TabData({
     required this.iconData,
     required this.title,
     this.onClick,
@@ -30,10 +40,19 @@ class TabData {
     this.borderRadius,
     this.tabGradient,
     this.key,
-  }) {
-    key = key ?? UniqueKey();
-  }
+  });
+
+  @override
+  List<Object?> get props => [
+        iconData,
+        title,
+        onClick,
+        tabColor,
+        tabGradient,
+        borderRadius,
+        key,
+      ];
 }
 
-/// enum to set the tab style
+/// Enum to set the tab style.
 enum CubertoTabStyle { styleNormal, styleFadedBackground }

@@ -1,25 +1,33 @@
 import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
+/// Offset value for the icon when it is off.
 const double iconOff = -3;
+
+/// Offset value for the icon when it is on.
 const double iconOn = 0;
+
+/// Offset value for the text when it is off.
 const double textOff = 3;
+
+/// Offset value for the text when it is on.
 const double textOn = 1;
+
+/// Alpha value for the icon when it is off.
 const double alphaOff = 0;
+
+/// Alpha value for the icon when it is on.
 const double alphaOn = 1;
 
 class TabItem extends StatefulWidget {
-  /// This title is used in the Tab as text
-  final String title;
-
-  /// This icon is used as Tab icon
-  final IconData iconData;
-
   /// This bool is used to know if the respective tab is selected or not
   final bool selected;
 
   /// This callbackFunction is called when the Tab is clicked
-  final Function(Key? uniqueKey) callbackFunction;
+  final Function(TabData tabData) callbackFunction;
+
+  /// THis color is used as inactive color if [tabData.color] is null
+  final Color inactiveColor;
 
   /// This color is used fot the text inside the Tab
   final Color textColor;
@@ -27,14 +35,8 @@ class TabItem extends StatefulWidget {
   /// This color is used as the icon color of the Tab
   final Color iconColor;
 
-  /// This color is used as the Tab background color
-  final Color tabColor;
-
   /// This gradient is used a the background gradient color of the Tab
   final Gradient? backGroundGradientColor;
-
-  /// This radius is used the borderRadius of the Tab
-  final BorderRadius? borderRadius;
 
   /// This value is used to YAlignment of the icon of the Tab
   final double iconYAlign = iconOn;
@@ -51,19 +53,44 @@ class TabItem extends StatefulWidget {
   /// This style is used to set the tabStyle
   final CubertoTabStyle? tabStyle;
 
+  /// This TabData is used to set the TabData of the Tab
+  final TabData tabData;
+
+  /// Constructor for TabItem widget.
+  ///
+  /// Parameters:
+  /// - selected: Indicates if the tab is selected.
+  /// - callbackFunction: Callback function called when the tab is clicked.
+  /// - textColor: Color used for the text inside the tab.
+  /// - iconColor: Color used as the icon color of the tab.
+  /// - inactiveColor: Color used as inactive color if [tabData.color] is null.
+  /// - tabData: TabData used to set the data of the tab.
+  /// - backGroundGradientColor: Gradient used as the background gradient color of the tab.
+  /// - tabStyle: Style of the tab, default is CubertoTabStyle.styleNormal.
   TabItem({
+    super.key,
     required this.selected,
-    required this.iconData,
-    required this.title,
     required this.callbackFunction,
     required this.textColor,
     required this.iconColor,
-    required this.tabColor,
-    this.borderRadius,
+    required this.inactiveColor,
+    required this.tabData,
     this.backGroundGradientColor,
     this.tabStyle = CubertoTabStyle.styleNormal,
-    super.key,
-  });
+  }) {
+    _iconData = tabData.iconData;
+    _title = tabData.title;
+    _tabColor = tabData.tabColor ?? inactiveColor;
+    _borderRadius = tabData.borderRadius ??
+        const BorderRadius.all(
+          Radius.circular(20.0),
+        );
+  }
+
+  late final IconData _iconData;
+  late final String _title;
+  late final Color _tabColor;
+  late final BorderRadius? _borderRadius;
 
   @override
   State<TabItem> createState() => _TabItemState();
@@ -97,8 +124,8 @@ class _TabItemState extends State<TabItem> {
                       stops: [0.0, 0.7])
               : LinearGradient(
                   colors: [
-                    widget.tabColor.withOpacity(0.1),
-                    widget.tabColor.withOpacity(0.1)
+                    widget._tabColor.withOpacity(0.1),
+                    widget._tabColor.withOpacity(0.1)
                   ],
                   stops: const [0.0, 0.7],
                 )
@@ -106,19 +133,17 @@ class _TabItemState extends State<TabItem> {
               colors: [Colors.transparent, Colors.transparent],
               stops: [0.0, 0.7],
             );
-      iconColor = widget.selected ? widget.tabColor : widget.iconColor;
+      iconColor = widget.selected ? widget._tabColor : widget.iconColor;
     }
 
     return InkWell(
+      key: widget.tabData.key,
       child: AnimatedContainer(
         padding: const EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
         duration: const Duration(milliseconds: kAnimationDuration),
         decoration: BoxDecoration(
           gradient: backGradient,
-          borderRadius: widget.borderRadius ??
-              const BorderRadius.all(
-                Radius.circular(20.0),
-              ),
+          borderRadius: widget._borderRadius,
         ),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: kAnimationDuration),
@@ -126,7 +151,7 @@ class _TabItemState extends State<TabItem> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Icon(
-                widget.iconData,
+                widget._iconData,
                 color: iconColor,
               ),
               const SizedBox(width: 8.0),
@@ -136,7 +161,7 @@ class _TabItemState extends State<TabItem> {
                     ? const EdgeInsets.only(left: 3.0, right: 3.0)
                     : const EdgeInsets.all(0.0),
                 child: Text(
-                  widget.selected ? widget.title : "",
+                  widget.selected ? widget._title : "",
                   overflow: TextOverflow.clip,
                   maxLines: 1,
                   textAlign: TextAlign.start,
@@ -152,7 +177,7 @@ class _TabItemState extends State<TabItem> {
       ),
       onTap: () {
         /// Callback called when the Tab is clicked
-        widget.callbackFunction(widget.key);
+        widget.callbackFunction(widget.tabData);
       },
     );
   }

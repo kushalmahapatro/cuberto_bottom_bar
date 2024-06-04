@@ -15,7 +15,7 @@ void main() {
 
   testWidgets('Correct styling for tabs', (WidgetTester tester) async {
     CubertoBottomBar fn = CubertoBottomBar(
-      tabs: <TabData>[
+      tabs: const <TabData>[
         TabData(iconData: Icons.home, title: 'Home'),
         TabData(iconData: Icons.search, title: 'Search'),
       ],
@@ -92,7 +92,7 @@ class __TestAppState extends State<_TestApp> {
             });
           },
           selectedTab: _selected,
-          tabs: <TabData>[
+          tabs: const <TabData>[
             TabData(iconData: Icons.home, title: 'Home'),
             TabData(iconData: Icons.search, title: 'Search')
           ],
