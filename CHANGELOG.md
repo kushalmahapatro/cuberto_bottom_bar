@@ -1,3 +1,8 @@
+## [3.1.0]
+
+- Added support for **Flutter 3.22.0**
+- Removed the dependency on the Key to fix the selected tab index issue [Which got introduced in Flutter 3.22.0](https://github.com/flutter/flutter/issues/148983) in Release build.
+
 ## [3.0.0]
 
 - Added support for Flutter3
